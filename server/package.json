@@ -1,0 +1,13 @@
+{
+  "name": "neurowork-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Proxy seguro de Gemini y servidor estático para NeuroWork",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

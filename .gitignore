@@ -1,0 +1,19 @@
+# Secretos
+server/.env
+.env
+
+# Dependencias (no usamos, pero por si acaso)
+node_modules/
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Artefactos temporales de desarrollo
+tmp/
+
+# Base de datos local generada en tiempo de ejecución
+server/data/*.db
+server/data/*.db-journal
+server/data/*.db-wal
+server/data/*.db-shm

@@ -1,0 +1,13 @@
+{
+  "name": "neurowork",
+  "version": "1.0.0",
+  "private": true,
+  "description": "NeuroWork — apoyo a la búsqueda de empleo para personas neurodivergentes (PWA)",
+  "scripts": {
+    "start": "node server/server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NeuroWork — Asistente laboral</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#2F6259">
+<meta name="description" content="Herramienta de apoyo a la búsqueda de empleo para personas neurodivergentes: currículum, análisis de vacantes, simulador de entrevistas, checklist y progreso.">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar" aria-label="Navegación principal">
+    <div class="brand">
+      <div class="brand-mark">🧭</div>
+      <div>
+        <div class="brand-word">NeuroWork</div>
+        <div class="brand-tag">Asistente laboral</div>
+      </div>
+    </div>
+    <div class="identity-block decl-hide" id="identityBlock">
+      <img class="identity-avatar" id="identityAvatar" alt="">
+      <div style="min-width:0;">
+        <div class="identity-name" id="identityName">Modo local</div>
+        <div class="identity-mode" id="identityMode"><span class="identity-dot"></span>Guardado en este navegador</div>
+      </div>
+    </div>
+    <nav class="nav-list" id="navList"></nav>
+    <div class="sidebar-foot">
+      <button class="foot-btn" id="declutterBtn" type="button">◐ &nbsp;Modo simple</button>
+      <button class="foot-btn" id="resetBtn" type="button">↺ &nbsp;Reiniciar datos</button>
+      <button class="debug-btn" id="debugToggleBtn" type="button">🩺 &nbsp;Diagnóstico</button>
+    </div>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div>
+        <h1 id="topTitle">Panel</h1>
+        <div class="sub" id="topSub">Tu progreso de hoy</div>
+      </div>
+      <div class="mobile-topnav"></div>
+    </div>
+    <main class="content" id="content"></main>
+  </div>
+</div>
+
+<div id="debugPanel">
+  <div class="dbg-head"><strong>Diagnóstico técnico</strong><button class="foot-btn" style="width:auto;padding:4px 8px;" id="debugCloseBtn" type="button">✕</button></div>
+  <div class="dbg-body" id="debugBody">Iniciando…</div>
+  <div class="dbg-actions">
+    <button id="debugCopyBtn" type="button">Copiar todo</button>
+    <button id="debugClearBtn" type="button">Limpiar</button>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
+<script src="ai.js"></script>
+<script src="analytics.js"></script>
+<script src="app.js"></script>
+<script>
+  // Registro del Service Worker (PWA). Solo en contextos seguros (http/https).
+  // En file:// no se registra, igual que la IA.
+  if ('serviceWorker' in navigator && (location.protocol === 'http:' || location.protocol === 'https:')) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('sw.js').catch(function (err) {
+        console.warn('Service worker no registrado:', err);
+      });
+    });
+  }
+</script>
+</body>
+</html>
