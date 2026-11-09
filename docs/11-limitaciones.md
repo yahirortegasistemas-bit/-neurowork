@@ -74,8 +74,9 @@ limitaciones reales de esta entrega.
 
 ## 11.7 Proceso de ingeniería
 
-- **Repositorio Git local** (con historial de cambios); **sin remoto publicado** en el
-  momento de esta entrega.
+- **Repositorio Git público** en GitHub:
+  <https://github.com/yahirortegasistemas-bit/-neurowork> (rama `main`, con historial de
+  cambios).
 - **No hay pipeline de integración continua** ni *linter* configurado. La validación
   automática se reduce a las pruebas de `npm test` y a `node --check` (sintaxis).
 - **Cobertura de pruebas parcial:** se cubre la lógica pura de `analytics.js`, la

@@ -6,6 +6,7 @@ Neurodivergentes mediante Inteligencia Artificial Generativa y Minería de Datos
 Yahir Ortega Ramos
 Instituto Tecnológico de Tijuana, Tijuana, Baja California, México
 L21212578@tectijuana.edu.mx
+Repositorio: <https://github.com/yahirortegasistemas-bit/-neurowork>
 
 ---
 
@@ -145,7 +146,7 @@ La clave de API **nunca** viaja al navegador: se inyecta en el servidor desde
 
 | Evidencia | Ubicación | Qué demuestra |
 |---|---|---|
-| Código fuente | Repositorio local (`git`) | Implementación completa |
+| Código fuente | [Repositorio público en GitHub](https://github.com/yahirortegasistemas-bit/-neurowork) | Implementación completa (rama `main`, commit `8d4c601`) |
 | Base de datos | `server/db.js`, `docs/13-base-de-datos.md` | Esquema relacional y relaciones |
 | Pruebas automáticas | `tests/` (41 pruebas) | Calidad y verificación |
 | Documentación | `docs/01`–`15`, `README.md` | Diseño y funcionamiento |
@@ -160,10 +161,11 @@ node tools/db-info.js          # 23 tablas y conteo de filas
 curl http://127.0.0.1:8787/api/db
 ```
 
-> **Nota honesta:** el repositorio es **local**; su publicación en GitHub queda como
-> paso pendiente si el profesor requiere un enlace. Las capturas y el video deben
-> insertarse como figuras reales del sistema en ejecución (no se incluyen aquí para no
-> presentar material que no haya sido capturado).
+> **Repositorio:** el código está publicado y accesible en
+> <https://github.com/yahirortegasistemas-bit/-neurowork> (rama `main`, commit `8d4c601`),
+> sin claves ni datos personales. Las capturas y el video deben insertarse como figuras
+> reales del sistema en ejecución (no se incluyen aquí para no presentar material que no
+> haya sido capturado).
 
 ---
 
