@@ -52,7 +52,7 @@ integración de inteligencia artificial generativa mediante un proxy seguro y un
 <b>base de datos relacional</b> (SQLite) conectada a la aplicación. Se incorporó un
 conjunto de <b>41 pruebas automáticas</b> que verifican la analítica, la generación de
 currículums, la base de datos y la API del servidor. La validación con personas usuarias
-se planifica para la fase final. El avance global estimado es de aproximadamente 85&nbsp;%.
+se planifica para la fase final. El avance global es de aproximadamente 75&nbsp;%.
 <br><br>
 <b>Palabras clave:</b> neurodivergencia · búsqueda de empleo · inteligencia artificial
 generativa · minería de datos · SQLite · accesibilidad.
@@ -192,23 +192,31 @@ filas) · <code>curl http://127.0.0.1:8787/api/db</code>.</p>
 
 <h2>5. Comparación con el cronograma inicial</h2>
 <table>
-<thead><tr><th>Actividad planificada</th><th>Estado</th><th>Evidencia</th></tr></thead>
+<thead><tr><th>#</th><th>Actividad del cronograma</th><th>Periodo</th><th>Planeado</th><th>Entregado (Avance 2)</th><th>Evidencia</th></tr></thead>
 <tbody>
-<tr><td>Anteproyecto y análisis de requerimientos</td><td>Completado</td><td>Descripción general (<code>docs/01-descripcion-general.md</code>), anteproyecto</td></tr>
-<tr><td>Diseño de arquitectura y modelo de datos</td><td>Completado</td><td>Arquitectura (<code>docs/03-arquitectura.md</code>), Base de datos (<code>docs/13-base-de-datos.md</code>)</td></tr>
-<tr><td>Diseño de interfaz accesible</td><td>Completado</td><td>Accesibilidad (<code>docs/12-accesibilidad.md</code>), <code>styles.css</code></td></tr>
-<tr><td>Desarrollo de módulos funcionales (11)</td><td>Completado</td><td>app.js</td></tr>
-<tr><td>Integración de IA generativa</td><td>Completado (técnica)</td><td>ai.js, server/server.js</td></tr>
-<tr><td>Base de datos relacional</td><td>Parcial (local)</td><td>server/db.js</td></tr>
-<tr><td>Módulo de minería de datos</td><td>Completado</td><td>Minería de datos (<code>docs/06-mineria-de-datos.md</code>), <code>analytics.js</code></td></tr>
-<tr><td>Capacidades PWA / offline</td><td>Completado</td><td>PWA (<code>docs/08-pwa.md</code>), <code>sw.js</code></td></tr>
-<tr><td>Pruebas técnicas</td><td>Completado</td><td><code>tests/</code> (41 correctas)</td></tr>
-<tr><td>Documentación técnica</td><td>En curso</td><td><code>docs/01</code>–<code>15</code></td></tr>
-<tr><td>Validación con usuarios</td><td>Pendiente</td><td>fase final</td></tr>
+<tr><td>1</td><td>Investigación y análisis del problema</td><td>Ago</td><td>Completado</td><td>Completado</td><td>Descripción general (docs/01)</td></tr>
+<tr><td>2</td><td>Investigación del estado del arte</td><td>Ago</td><td>Completado</td><td>Completado</td><td>Anteproyecto, docs/01</td></tr>
+<tr><td>3</td><td>Definición de requerimientos</td><td>Ago–Sep</td><td>Completado</td><td>Completado</td><td>Módulos funcionales (docs/04)</td></tr>
+<tr><td>4</td><td>Diseño de arquitectura del sistema</td><td>Sep</td><td>Completado</td><td>Completado</td><td>Arquitectura (docs/03)</td></tr>
+<tr><td>5</td><td>Diseño de base de datos</td><td>Sep</td><td>Completado</td><td>Completado (23 tablas)</td><td>Base de datos (docs/13)</td></tr>
+<tr><td>6</td><td>Diseño de interfaces</td><td>Sep</td><td>Completado</td><td>Completado</td><td>Accesibilidad (docs/12), styles.css</td></tr>
+<tr><td>7</td><td>Desarrollo del perfil profesional</td><td>Sep</td><td>Completado</td><td>Completado</td><td>app.js</td></tr>
+<tr><td>8</td><td>Desarrollo del módulo de habilidades y CV</td><td>Sep–Oct</td><td>Completado</td><td>Completado (4 plantillas)</td><td>app.js, ai.js</td></tr>
+<tr><td>9</td><td>Desarrollo del análisis de vacantes</td><td>Oct</td><td>Completado</td><td>Completado</td><td>Módulo Entrevistas</td></tr>
+<tr><td>10</td><td>Desarrollo del simulador de entrevistas</td><td>Oct</td><td>Completado</td><td>Completado</td><td>app.js</td></tr>
+<tr><td>11</td><td>Desarrollo de metas, actividades y checklist</td><td>Oct</td><td>Completado</td><td>Completado</td><td>app.js</td></tr>
+<tr><td>12</td><td>Integración de inteligencia artificial</td><td>Oct</td><td>Completado</td><td>Completado</td><td>ai.js, server/server.js</td></tr>
+<tr><td>13</td><td>Implementación del registro de datos</td><td>Oct</td><td>Completado</td><td>Completado (SQLite)</td><td>server/db.js</td></tr>
+<tr><td>14</td><td>Análisis inicial mediante minería de datos</td><td>Nov</td><td>Pendiente</td><td>Completado (adelantado)</td><td>analytics.js, Minería de datos (docs/06)</td></tr>
+<tr><td>15</td><td>Pruebas funcionales</td><td>Nov</td><td>Pendiente</td><td>En progreso (41 pruebas)</td><td>tests/</td></tr>
+<tr><td>16</td><td>Pruebas de usabilidad</td><td>Nov</td><td>Pendiente</td><td>Pendiente (fase final)</td><td>—</td></tr>
+<tr><td>17</td><td>Corrección de errores</td><td>Nov</td><td>Pendiente</td><td>En progreso (correcciones aplicadas)</td><td>§6.3</td></tr>
+<tr><td>18</td><td>Integración de la versión Beta</td><td>Nov</td><td>Pendiente</td><td>En progreso (PWA funcional)</td><td>sw.js</td></tr>
+<tr><td>19</td><td>Documentación del proyecto</td><td>Ago–Dic</td><td>En progreso</td><td>En progreso</td><td>docs/01–15</td></tr>
+<tr><td>20</td><td>Presentación y entrega del proyecto</td><td>Dic</td><td>Pendiente</td><td>Pendiente (2 dic)</td><td>—</td></tr>
 </tbody>
 </table>
-<p><b>Avance global estimado: ~85&nbsp;%.</b> Se consolidaron las actividades técnicas;
-falta la validación empírica con usuarios y la exportación a PDF.</p>
+<p><b>Avance global: ~75&nbsp;%</b>, según el cronograma de seguimiento del anteproyecto. A la fecha, dos actividades planeadas para noviembre (<b>minería de datos</b> y <b>pruebas funcionales</b>) ya están adelantadas, por lo que el avance técnico es igual o ligeramente superior. Lo que resta es la <b>prueba de usabilidad con personas</b> y la <b>presentación final</b>.</p>
 
 <h2>6. Pruebas preliminares y validaciones</h2>
 <h3>6.1 Pruebas automáticas</h3>
@@ -266,7 +274,7 @@ neurodivergentes está planificada para la fase final.</p>
 </tbody>
 </table>
 <p><b>Recursos:</b> desarrollo individual, asesoría del profesor y usuarios voluntarios.
-<b>Tiempo total estimado:</b> aproximadamente 4 semanas. <b>Entregables planeados:</b>
+<b>Tiempo total estimado:</b> aproximadamente 4 semanas. <b>Fecha de entrega final:</b> 2 de diciembre de 2026. <b>Entregables planeados:</b>
 prototipo completo, base de datos con migración, suite de pruebas en verde, memoria técnica,
 manual de usuario y evidencias (repositorio, capturas, video).</p>
 

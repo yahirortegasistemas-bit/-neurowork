@@ -170,22 +170,36 @@ curl http://127.0.0.1:8787/api/db
 
 ## 5. Comparación con el cronograma inicial
 
-| Actividad planificada | Estado | Evidencia |
-|---|---|---|
-| Anteproyecto y análisis de requerimientos | Completado | [Descripción general](../docs/01-descripcion-general.md), anteproyecto |
-| Diseño de arquitectura y modelo de datos | Completado | [Arquitectura](../docs/03-arquitectura.md), [Base de datos](../docs/13-base-de-datos.md) |
-| Diseño de interfaz accesible | Completado | `styles.css`, [Accesibilidad](../docs/12-accesibilidad.md) |
-| Desarrollo de módulos funcionales (11) | Completado | `app.js` |
-| Integración de IA generativa | Completado (integración técnica) | `ai.js`, `server/server.js` |
-| Base de datos relacional | Parcial (diseñada e implementada en local) | `server/db.js` |
-| Módulo de minería de datos | Completado | `analytics.js`, [Minería de datos](../docs/06-mineria-de-datos.md) |
-| Capacidades PWA / offline | Completado | `sw.js`, [PWA](../docs/08-pwa.md) |
-| Pruebas técnicas | Completado | `tests/` (41 correctas) |
-| Documentación técnica | En curso | [`docs/01`–`15`](../docs/) |
-| Validación con usuarios | Pendiente | prevista en fase final |
+El anteproyecto definió **20 actividades** distribuidas de agosto a diciembre de 2026. La
+siguiente tabla compara lo **planeado** con lo **entregado** a la fecha del Avance 2.
 
-**Avance global estimado: ~85 %.** Se han consolidado todas las actividades técnicas;
-falta la validación empírica con usuarios y la exportación a PDF.
+| # | Actividad del cronograma | Periodo | Planeado | Entregado (Avance 2) | Evidencia |
+|---|---|---|---|---|---|
+| 1 | Investigación y análisis del problema | Ago | Completado | Completado | [Descripción general](../docs/01-descripcion-general.md) |
+| 2 | Investigación del estado del arte | Ago | Completado | Completado | Anteproyecto, [docs/01](../docs/01-descripcion-general.md) |
+| 3 | Definición de requerimientos | Ago–Sep | Completado | Completado | [Módulos funcionales](../docs/04-modulos-funcionales.md) |
+| 4 | Diseño de arquitectura del sistema | Sep | Completado | Completado | [Arquitectura](../docs/03-arquitectura.md) |
+| 5 | Diseño de base de datos | Sep | Completado | Completado (23 tablas) | [Base de datos](../docs/13-base-de-datos.md) |
+| 6 | Diseño de interfaces | Sep | Completado | Completado | `styles.css`, [Accesibilidad](../docs/12-accesibilidad.md) |
+| 7 | Desarrollo del perfil profesional | Sep | Completado | Completado | `app.js` |
+| 8 | Desarrollo del módulo de habilidades y CV | Sep–Oct | Completado | Completado (4 plantillas) | `app.js`, `ai.js` |
+| 9 | Desarrollo del análisis de vacantes | Oct | Completado | Completado | Módulo *Entrevistas* |
+| 10 | Desarrollo del simulador de entrevistas | Oct | Completado | Completado | `app.js` |
+| 11 | Desarrollo de metas, actividades y checklist | Oct | Completado | Completado | `app.js` |
+| 12 | Integración de inteligencia artificial | Oct | Completado | Completado | `ai.js`, `server/server.js` |
+| 13 | Implementación del registro de datos | Oct | Completado | Completado (SQLite) | `server/db.js` |
+| 14 | Análisis inicial mediante minería de datos | Nov | Pendiente | **Completado (adelantado)** | `analytics.js`, [Minería de datos](../docs/06-mineria-de-datos.md) |
+| 15 | Pruebas funcionales | Nov | Pendiente | En progreso (41 pruebas) | `tests/` |
+| 16 | Pruebas de usabilidad | Nov | Pendiente | Pendiente (fase final) | — |
+| 17 | Corrección de errores | Nov | Pendiente | En progreso (correcciones aplicadas) | §6.3 |
+| 18 | Integración de la versión Beta | Nov | Pendiente | En progreso (PWA funcional) | `sw.js` |
+| 19 | Documentación del proyecto | Ago–Dic | En progreso | En progreso | [`docs/01`–`15`](../docs/) |
+| 20 | Presentación y entrega del proyecto | Dic | Pendiente | Pendiente (2 dic) | — |
+
+**Avance global: ~75 %**, según el cronograma de seguimiento del anteproyecto. A la fecha,
+dos actividades planeadas para noviembre (**minería de datos** y **pruebas funcionales**) ya
+están adelantadas, por lo que el avance técnico es igual o ligeramente superior. Lo que resta
+es la **prueba de usabilidad con personas** y la **presentación final**.
 
 ---
 
@@ -261,7 +275,7 @@ neurodivergentes está planificada para la fase final (sección 8).
 | 8 | Presentación y demo | Diapositivas + video | 2 días |
 
 **Recursos:** desarrollo individual, asesoría del profesor y usuarios voluntarios.
-**Tiempo total estimado:** ~4 semanas.
+**Tiempo total estimado:** ~4 semanas. **Fecha de entrega final:** 2 de diciembre de 2026.
 
 **Entregables planeados para la entrega final:** prototipo completo, base de datos con
 migración, suite de pruebas en verde, memoria técnica, manual de usuario y evidencias

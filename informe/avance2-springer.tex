@@ -30,7 +30,7 @@ inteligencia artificial generativa mediante un proxy seguro y una \textbf{base d
 relacional} (SQLite) conectada a la aplicación. Se incorporó un conjunto de \textbf{41
 pruebas automáticas} que verifican la analítica, la generación de currículums, la base de
 datos y la API del servidor. La validación con personas usuarias se planifica para la fase
-final. El avance global estimado es de aproximadamente 85\,\%.
+final. El avance global es de aproximadamente 75\,\%.
 
 \keywords{neurodivergencia \and búsqueda de empleo \and inteligencia artificial generativa \and minería de datos \and SQLite \and accesibilidad.}
 \end{abstract}
@@ -209,34 +209,46 @@ tomadas automáticamente con un navegador en modo sin interfaz.
 \end{figure}
 
 \section{Comparación con el cronograma inicial}
-El avance respecto al plan se resume en la Tabla~\ref{tab:cronograma}.
+El anteproyecto definió 20 actividades de agosto a diciembre de 2026. La
+Tabla~\ref{tab:cronograma} compara lo planeado con lo entregado a la fecha del Avance 2.
 
 \begin{table}[htbp]
-\caption{Comparación con el cronograma inicial.}
+\caption{Comparación con el cronograma inicial (planeado vs. entregado).}
 \label{tab:cronograma}
 \centering
-\small
-\begin{tabular}{lll}
+\footnotesize
+\begin{tabular}{cl p{4.3cm} l l}
 \toprule
-Actividad planificada & Estado & Evidencia\\
+\# & Periodo & Actividad & Planeado & Entregado\\
 \midrule
-Anteproyecto y requerimientos & Completado & Descripción general (\texttt{docs/01}), anteproyecto\\
-Arquitectura y modelo de datos & Completado & Arquitectura (\texttt{docs/03}), Base de datos (\texttt{docs/13})\\
-Interfaz accesible & Completado & Accesibilidad (\texttt{docs/12}), \texttt{styles.css}\\
-Módulos funcionales (11) & Completado & \texttt{app.js}\\
-Integración de IA generativa & Completado (técnica) & \texttt{ai.js}, \texttt{server.js}\\
-Base de datos relacional & Parcial (local) & \texttt{server/db.js}\\
-Minería de datos & Completado & Minería de datos (\texttt{docs/06}), \texttt{analytics.js}\\
-Capacidades PWA / offline & Completado & PWA (\texttt{docs/08}), \texttt{sw.js}\\
-Pruebas técnicas & Completado & \texttt{tests/} (41)\\
-Documentación técnica & En curso & \texttt{docs/01}--\texttt{15}\\
-Validación con usuarios & Pendiente & fase final\\
+1 & Ago & Investigación y análisis del problema & Completado & Completado\\
+2 & Ago & Investigación del estado del arte & Completado & Completado\\
+3 & Ago--Sep & Definición de requerimientos & Completado & Completado\\
+4 & Sep & Diseño de arquitectura del sistema & Completado & Completado\\
+5 & Sep & Diseño de base de datos & Completado & Completado (23 tablas)\\
+6 & Sep & Diseño de interfaces & Completado & Completado\\
+7 & Sep & Desarrollo del perfil profesional & Completado & Completado\\
+8 & Sep--Oct & Desarrollo del módulo de habilidades y CV & Completado & Completado (4 plantillas)\\
+9 & Oct & Desarrollo del análisis de vacantes & Completado & Completado\\
+10 & Oct & Desarrollo del simulador de entrevistas & Completado & Completado\\
+11 & Oct & Desarrollo de metas, actividades y checklist & Completado & Completado\\
+12 & Oct & Integración de inteligencia artificial & Completado & Completado\\
+13 & Oct & Implementación del registro de datos & Completado & Completado (SQLite)\\
+14 & Nov & Análisis inicial mediante minería de datos & Pendiente & Completado (adelantado)\\
+15 & Nov & Pruebas funcionales & Pendiente & En progreso (41 pruebas)\\
+16 & Nov & Pruebas de usabilidad & Pendiente & Pendiente (fase final)\\
+17 & Nov & Corrección de errores & Pendiente & En progreso\\
+18 & Nov & Integración de la versión Beta & Pendiente & En progreso (PWA)\\
+19 & Ago--Dic & Documentación del proyecto & En progreso & En progreso\\
+20 & Dic & Presentación y entrega del proyecto & Pendiente & Pendiente (2 dic)\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\textbf{Avance global estimado: $\sim$85\,\%.} Se consolidaron las actividades técnicas;
-falta la validación empírica con usuarios y la exportación a PDF.
+\textbf{Avance global: $\sim$75\,\%}, según el cronograma del anteproyecto. Dos actividades
+planeadas para noviembre (minería de datos y pruebas funcionales) ya están adelantadas, por
+lo que el avance técnico es igual o ligeramente superior. Restan la prueba de usabilidad con
+personas y la presentación final.
 
 \section{Pruebas preliminares y validaciones}
 \subsection{Pruebas automáticas}
@@ -306,7 +318,8 @@ Manual de usuario inicial: (\texttt{docs/14-manual-usuario.md}). Plan de cierre:
 \end{table}
 
 \noindent\textbf{Recursos:} desarrollo individual, asesoría del profesor y usuarios
-voluntarios. \textbf{Tiempo total estimado:} $\sim$4 semanas. \textbf{Entregables
+voluntarios. \textbf{Tiempo total estimado:} $\sim$4 semanas. \textbf{Fecha de entrega
+final:} 2 de diciembre de 2026. \textbf{Entregables
 planeados:} prototipo completo, base de datos con migración, suite de pruebas en verde,
 memoria técnica, manual de usuario y evidencias (repositorio, capturas, video).
 
