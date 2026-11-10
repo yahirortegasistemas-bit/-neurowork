@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>NeuroWork — Avance 2 (Springer LNCS)</title>
+<style>
+  @page { size: A4; margin: 50mm 44mm 50mm 44mm; }
+  * { box-sizing: border-box; }
+  body { font-family: "Times New Roman", Times, serif; font-size: 10pt; line-height: 1.28; color: #000; margin: 0; }
+  .title { font-size: 14pt; font-weight: bold; text-align: center; margin: 0 0 5mm; }
+  .author { text-align: center; font-size: 12pt; margin: 0; }
+  .affil { text-align: center; font-size: 10pt; font-style: italic; margin: 1.5mm 0 0; }
+  .repo { text-align: center; font-size: 8.5pt; margin: 2mm 0 6mm; }
+  .abstract { font-size: 9pt; margin: 3mm 5mm 2mm; text-align: justify; }
+  .abstract b { font-weight: bold; }
+  h2 { font-size: 12pt; font-weight: bold; margin: 6mm 0 2mm; }
+  h3 { font-size: 10pt; font-weight: bold; font-style: italic; margin: 3.5mm 0 1.5mm; }
+  p { margin: 0 0 2mm; text-align: justify; }
+  ul, ol { margin: 1mm 0 2.5mm 5mm; padding: 0; }
+  li { margin: 0 0 1mm; text-align: justify; }
+  table { border-collapse: collapse; width: 100%; font-size: 8.7pt; margin: 2mm 0 3mm; }
+  th, td { padding: 1mm 1.5mm; text-align: left; vertical-align: top; }
+  thead th { border-top: 1pt solid #000; border-bottom: 0.6pt solid #000; font-weight: bold; }
+  tbody td { border: none; }
+  tbody tr { border-bottom: 0.3pt solid #bbb; }
+  tbody tr:last-child { border-bottom: 1pt solid #000; }
+  code, pre { font-family: "Courier New", monospace; }
+  code { font-size: 8.7pt; }
+  pre { font-size: 8pt; white-space: pre-wrap; margin: 2mm 0; background: #f6f6f6; padding: 2mm; border-left: 2pt solid #999; }
+  figure { margin: 3mm 0 4mm; text-align: center; page-break-inside: avoid; }
+  figure img { width: 100%; height: auto; border: 0.4pt solid #ccc; }
+  .cap { font-size: 8.5pt; text-align: justify; margin-top: 1.2mm; }
+  .cap b { font-weight: bold; }
+  .two { display: flex; gap: 5mm; }
+  .two figure { width: 50%; }
+  .note { font-size: 9pt; color: #333; }
+  hr { border: none; border-top: 0.5pt solid #999; margin: 4mm 0; }
+</style>
+</head>
+<body>
+
+<div class="title">NeuroWork: asistente inteligente para la búsqueda y adaptación laboral de personas neurodivergentes mediante inteligencia artificial generativa y minería de datos</div>
+<p class="author">Yahir Ortega Ramos</p>
+<p class="affil">Instituto Tecnológico de Tijuana, Tijuana, Baja California, México<br>L21212578@tectijuana.edu.mx</p>
+<p class="repo">Avance 2 · Repositorio: https://github.com/yahirortegasistemas-bit/-neurowork</p>
+
+<div class="abstract">
+<b>Resumen.</b> Este documento reporta el avance del proyecto NeuroWork, una aplicación web
+(PWA) de apoyo a la búsqueda de empleo para personas neurodivergentes. En esta etapa el
+sistema pasó de propuesta a un <b>prototipo funcional</b> con once módulos operativos,
+integración de inteligencia artificial generativa mediante un proxy seguro y una
+<b>base de datos relacional</b> (SQLite) conectada a la aplicación. Se incorporó un
+conjunto de <b>41 pruebas automáticas</b> que verifican la analítica, la generación de
+currículums, la base de datos y la API del servidor. La validación con personas usuarias
+se planifica para la fase final. El avance global estimado es de aproximadamente 85&nbsp;%.
+<br><br>
+<b>Palabras clave:</b> neurodivergencia · búsqueda de empleo · inteligencia artificial
+generativa · minería de datos · SQLite · accesibilidad.
+</div>
+
+<hr>
+
+<h2>1. Desarrollo funcional parcial</h2>
+<p>El sistema se encuentra en una <b>fase operativa inicial estable</b>. La aplicación
+contempla once módulos, todos navegables y funcionales:</p>
+<table>
+<thead><tr><th>Módulo</th><th>Estado</th><th>Función principal</th></tr></thead>
+<tbody>
+<tr><td>Panel</td><td>Funcional</td><td>Resumen del día: perfil, checklist, objetivos y dificultad</td></tr>
+<tr><td>Progreso</td><td>Funcional</td><td>Minería de datos y gráficas de avance</td></tr>
+<tr><td>Perfil</td><td>Funcional</td><td>Datos de contacto, experiencia y formación</td></tr>
+<tr><td>Habilidades</td><td>Funcional</td><td>Registro con categoría y nivel de confianza (1–5)</td></tr>
+<tr><td>CV</td><td>Funcional</td><td>Generación/adaptación con IA y cuatro plantillas descargables</td></tr>
+<tr><td>Entrevistas</td><td>Funcional</td><td>Cuatro pestañas: vacante, simulador, preparación y respuestas</td></tr>
+<tr><td>Reuniones</td><td>Funcional</td><td>Instrucciones convertidas en pasos + redacción asistida</td></tr>
+<tr><td>Checklist</td><td>Funcional</td><td>Tareas con repetición diaria</td></tr>
+<tr><td>Objetivos</td><td>Funcional</td><td>Metas con porcentaje de avance</td></tr>
+<tr><td>Preferencias</td><td>Funcional</td><td>Modalidad, horario y ajustes razonables</td></tr>
+<tr><td>Privacidad</td><td>Funcional</td><td>Transparencia sobre el manejo de datos</td></tr>
+</tbody>
+</table>
+<p><b>Funcionalidad destacada (CV).</b> Genera un borrador con IA a partir del perfil,
+permite adaptarlo a una vacante concreta y descargarlo en un documento <code>.doc</code> con
+cuatro diseños profesionales (<i>Moderno</i>, <i>Ejecutivo</i>, <i>Clásico</i> y
+<i>Minimalista</i>), con vista previa antes de descargar y fechas alineadas a la derecha.</p>
+<p><b>Sobre el inicio de sesión.</b> NeuroWork <b>no implementa autenticación</b> de forma
+deliberada. Su modelo es <i>local-first</i>: la información permanece en el equipo de la
+persona y no existe un servidor de cuentas en la nube. Añadir un <i>login</i> obligaría a
+almacenar datos personales en un servidor, lo que contradiría el principio de minimización
+documentado. Esta decisión puede revisarse si el proyecto requiere operación multiusuario.</p>
+
+<h2>2. Prototipo funcional / versión de prueba</h2>
+<p>El prototipo es <b>ejecutable y navegable</b>, e instalable como aplicación (PWA).
+<b>Requisitos:</b> Node.js 22+ y un navegador moderno. <b>Ejecución:</b>
+<code>node server/server.js</code> y abrir <code>http://127.0.0.1:8787</code>.</p>
+<p><b>Flujo principal demostrable:</b></p>
+<ol>
+<li>Registrar perfil y habilidades.</li>
+<li>Generar un CV con IA y descargarlo en cualquiera de los cuatro diseños.</li>
+<li>Adaptar el CV a una vacante pegada por la persona.</li>
+<li>Practicar un simulacro de entrevista con retroalimentación por respuesta.</li>
+<li>Registrar objetivos y checklist; observar el progreso en gráficas.</li>
+<li>Comprobar el respaldo en la base de datos (<code>/api/db</code>).</li>
+</ol>
+<p>La aplicación funciona <b>sin conexión</b> para todo lo local mediante un <i>Service
+Worker</i>; solo las funciones de IA requieren red.</p>
+
+<h2>3. Avance de la base de datos y arquitectura</h2>
+<h3>3.1 Decisión y estado</h3>
+<p>Se integró una base de datos <b>relacional SQLite</b> usando el módulo nativo
+<code>node:sqlite</code> (sin dependencias externas). El archivo reside en
+<code>server/data/neurowork.db</code>, en el propio equipo, y está excluido del repositorio.
+<b>Estado:</b> diseñada e implementada parcialmente; queda pendiente la migración de datos
+antiguos y la sincronización multiusuario.</p>
+<h3>3.2 Esquema (23 tablas con relaciones)</h3>
+<pre>workspace (raíz)
+ ├─1:1─ profile            ├─1:N─ experiences        ├─1:N─ skills
+ ├─1:1─ preferences        ├─1:N─ education          ├─1:N─ languages
+ ├─1:1─ prep_plans         ├─1:N─ certifications     ├─1:N─ projects
+ ├─1:1─ vacancy_analyses   ├─1:N─ cv_documents ─N:1─ cv_templates
+ ├─1:N─ checklist_items    ├─1:N─ goals              ├─1:N─ activity_log
+ ├─1:N─ snapshots          ├─1:N─ prepared_answers   ├─1:N─ professional_links
+ └─1:N─ meetings ─1:N─ meeting_steps
+ └─1:N─ interview_sessions ─1:N─ interview_questions</pre>
+<p>Cada tabla tiene clave primaria; las tablas hijas referencian <code>workspace(id)</code>
+con <code>ON DELETE CASCADE</code>. El DDL completo está en <code>server/db.js</code>.</p>
+<h3>3.3 Conexión con la aplicación</h3>
+<table>
+<thead><tr><th>Método</th><th>Endpoint</th><th>Función</th></tr></thead>
+<tbody>
+<tr><td>PUT</td><td>/api/state</td><td>Guarda el estado (llamado por <code>saveState()</code>)</td></tr>
+<tr><td>GET</td><td>/api/state</td><td>Recupera el estado al arrancar si no había datos locales</td></tr>
+<tr><td>DELETE</td><td>/api/state</td><td>Borra el respaldo («Reiniciar datos»)</td></tr>
+<tr><td>GET</td><td>/api/db</td><td>Motor, ruta y conteo de filas por tabla</td></tr>
+</tbody>
+</table>
+<p>La persistencia es doble y transparente: <b>localStorage siempre</b> y, si el servidor
+está activo, <b>respaldo en SQLite</b>. Si no hay servidor, la app sigue funcionando igual.
+La clave de API nunca viaja al navegador: se inyecta en el servidor desde <code>server/.env</code>.</p>
+
+<h2>4. Evidencias del avance</h2>
+<p>Las siguientes capturas corresponden al prototipo en ejecución con <b>datos de
+ejemplo</b>, tomadas automáticamente con un navegador en modo sin interfaz.</p>
+
+<figure><img src="figs/01-panel.png" alt="Panel">
+<div class="cap"><b>Fig. 1.</b> Panel principal: resumen del progreso del día (perfil,
+habilidades, checklist, objetivos), actividad reciente y patrones de dificultad.</div></figure>
+
+<figure><img src="figs/02-progreso.png" alt="Progreso">
+<div class="cap"><b>Fig. 2.</b> Módulo de minería de datos: actividad semanal, evolución
+del perfil y perfil de habilidades por categoría, calculados a partir de los datos guardados
+(no se inventan cifras).</div></figure>
+
+<div class="two">
+<figure><img src="figs/03-perfil.png" alt="Perfil"><div class="cap"><b>Fig. 3.</b> Perfil profesional: datos de contacto, experiencia y formación; base del CV y de las entrevistas.</div></figure>
+<figure><img src="figs/04-habilidades.png" alt="Habilidades"><div class="cap"><b>Fig. 4.</b> Registro de habilidades con categoría y nivel de confianza (1–5).</div></figure>
+</div>
+
+<figure><img src="figs/05-cv.png" alt="CV">
+<div class="cap"><b>Fig. 5.</b> Módulo de CV: generación asistida por IA, adaptación a una
+vacante, selector de cuatro diseños, vista previa y descarga.</div></figure>
+
+<div class="two">
+<figure><img src="figs/06-entrevistas.png" alt="Entrevistas"><div class="cap"><b>Fig. 6.</b> Entrevistas: cuatro pestañas (entender la vacante, simulador, preparación y preparar respuestas).</div></figure>
+<figure><img src="figs/07-reuniones.png" alt="Reuniones"><div class="cap"><b>Fig. 7.</b> Reuniones: las instrucciones se convierten en una lista de pasos claros.</div></figure>
+</div>
+
+<div class="two">
+<figure><img src="figs/08-checklist.png" alt="Checklist"><div class="cap"><b>Fig. 8.</b> Checklist de tareas, con opción de repetición diaria.</div></figure>
+<figure><img src="figs/09-objetivos.png" alt="Objetivos"><div class="cap"><b>Fig. 9.</b> Objetivos con fecha y porcentaje de avance.</div></figure>
+</div>
+
+<div class="two">
+<figure><img src="figs/10-preferencias.png" alt="Preferencias"><div class="cap"><b>Fig. 10.</b> Preferencias de trabajo: modalidad, horario, comunicación y ajustes razonables.</div></figure>
+<figure><img src="figs/11-privacidad.png" alt="Privacidad"><div class="cap"><b>Fig. 11.</b> Privacidad: transparencia sobre los datos y estado del respaldo en la base de datos local.</div></figure>
+</div>
+
+<figure><img src="figs/12-cv-moderno.png" alt="CV Moderno">
+<div class="cap"><b>Fig. 12.</b> Diseño de CV «Moderno»: dos columnas con barra lateral.</div></figure>
+
+<div class="two">
+<figure><img src="figs/13-cv-ejecutivo.png" alt="CV Ejecutivo"><div class="cap"><b>Fig. 13.</b> Diseño «Ejecutivo»: una columna con cabecera destacada.</div></figure>
+<figure><img src="figs/14-cv-clasico.png" alt="CV Clásico"><div class="cap"><b>Fig. 14.</b> Diseño «Clásico»: serif y centrado.</div></figure>
+</div>
+
+<figure><img src="figs/15-cv-minimalista.png" alt="CV Minimalista">
+<div class="cap"><b>Fig. 15.</b> Diseño «Minimalista»: limpio y con amplio espacio en blanco.</div></figure>
+
+<p class="note"><b>Comandos de verificación reproducibles:</b>
+<code>npm test</code> (41 pruebas) · <code>node tools/db-info.js</code> (23 tablas y conteo de
+filas) · <code>curl http://127.0.0.1:8787/api/db</code>.</p>
+
+<h2>5. Comparación con el cronograma inicial</h2>
+<table>
+<thead><tr><th>Actividad planificada</th><th>Estado</th><th>Evidencia</th></tr></thead>
+<tbody>
+<tr><td>Anteproyecto y análisis de requerimientos</td><td>Completado</td><td>Descripción general (<code>docs/01-descripcion-general.md</code>), anteproyecto</td></tr>
+<tr><td>Diseño de arquitectura y modelo de datos</td><td>Completado</td><td>Arquitectura (<code>docs/03-arquitectura.md</code>), Base de datos (<code>docs/13-base-de-datos.md</code>)</td></tr>
+<tr><td>Diseño de interfaz accesible</td><td>Completado</td><td>Accesibilidad (<code>docs/12-accesibilidad.md</code>), <code>styles.css</code></td></tr>
+<tr><td>Desarrollo de módulos funcionales (11)</td><td>Completado</td><td>app.js</td></tr>
+<tr><td>Integración de IA generativa</td><td>Completado (técnica)</td><td>ai.js, server/server.js</td></tr>
+<tr><td>Base de datos relacional</td><td>Parcial (local)</td><td>server/db.js</td></tr>
+<tr><td>Módulo de minería de datos</td><td>Completado</td><td>Minería de datos (<code>docs/06-mineria-de-datos.md</code>), <code>analytics.js</code></td></tr>
+<tr><td>Capacidades PWA / offline</td><td>Completado</td><td>PWA (<code>docs/08-pwa.md</code>), <code>sw.js</code></td></tr>
+<tr><td>Pruebas técnicas</td><td>Completado</td><td><code>tests/</code> (41 correctas)</td></tr>
+<tr><td>Documentación técnica</td><td>En curso</td><td><code>docs/01</code>–<code>15</code></td></tr>
+<tr><td>Validación con usuarios</td><td>Pendiente</td><td>fase final</td></tr>
+</tbody>
+</table>
+<p><b>Avance global estimado: ~85&nbsp;%.</b> Se consolidaron las actividades técnicas;
+falta la validación empírica con usuarios y la exportación a PDF.</p>
+
+<h2>6. Pruebas preliminares y validaciones</h2>
+<h3>6.1 Pruebas automáticas</h3>
+<p>Resultado: <b>41 pruebas, 41 correctas, 0 fallos</b>.</p>
+<table>
+<thead><tr><th>Archivo</th><th>Casos</th><th>Cubre</th></tr></thead>
+<tbody>
+<tr><td>tests/analytics.test.js</td><td>16</td><td>Minería de datos y gráficas</td></tr>
+<tr><td>tests/cv-doc.test.js</td><td>7</td><td>Generación de documentos de CV</td></tr>
+<tr><td>tests/db.test.js</td><td>7</td><td>Base de datos (ida y vuelta, cascada)</td></tr>
+<tr><td>tests/api.test.js</td><td>7</td><td>API HTTP + base de datos (integración)</td></tr>
+<tr><td>tests/server.test.js</td><td>4</td><td>Seguridad y utilidades del servidor</td></tr>
+</tbody>
+</table>
+<h3>6.2 Verificación manual</h3>
+<ul>
+<li>Verificación sintáctica con <code>node --check</code> en <code>app.js</code>, <code>ai.js</code>, <code>sw.js</code> y <code>server/*.js</code>.</li>
+<li><code>/api/health</code> operativo con <code>keyConfigured: true</code>.</li>
+<li>Comprobación en vivo de <code>PUT/GET/DELETE /api/state</code> y <code>GET /api/db</code> (23 tablas).</li>
+<li>Lista de comprobación manual en <code>docs/09-pruebas.md</code>.</li>
+</ul>
+<h3>6.3 Correcciones aplicadas</h3>
+<ul>
+<li><b>IA:</b> error <code>Failed to fetch</code> al abrir la app como archivo; se resolvió sirviendo por HTTP con un mensaje orientador.</li>
+<li><b>Caché PWA:</b> se incrementó la versión del Service Worker para invalidar la caché anterior.</li>
+<li><b>CV:</b> se rediseñó el generador (cuatro plantillas, fechas alineadas, contacto sin duplicados).</li>
+<li><b>Codificación:</b> UTF-8 garantizado en los documentos <code>.doc</code> (prefijo BOM).</li>
+</ul>
+<h3>6.4 Retroalimentación</h3>
+<p><b>Aún no se ha realizado validación con usuarios finales.</b> No se reportan opiniones ni
+resultados que no se hayan recogido formalmente. La prueba piloto con 2–3 personas
+neurodivergentes está planificada para la fase final.</p>
+
+<h2>7. Documentación técnica</h2>
+<ul>
+<li><b>Diagrama de arquitectura y flujo:</b> Arquitectura del sistema (<code>docs/03-arquitectura.md</code>) y Base de datos (<code>docs/13-base-de-datos.md</code>).</li>
+<li><b>Especificación de módulos:</b> Módulos funcionales (<code>docs/04-modulos-funcionales.md</code>). <b>Flujos de IA:</b> Flujos de IA (<code>docs/05-flujos-de-ia.md</code>).</li>
+<li><b>Minería de datos:</b> Minería de datos (<code>docs/06-mineria-de-datos.md</code>). <b>Seguridad:</b> Seguridad (<code>docs/07-seguridad.md</code>).</li>
+<li><b>Base de datos:</b> Base de datos (<code>docs/13-base-de-datos.md</code>): ER, tablas, endpoints y mapeo.</li>
+<li><b>Manual de usuario inicial:</b> Manual de usuario (<code>docs/14-manual-usuario.md</code>). <b>Plan de cierre:</b> Plan de fase final (<code>docs/15-plan-fase-final.md</code>).</li>
+</ul>
+
+<h2>8. Plan de trabajo para la fase final</h2>
+<table>
+<thead><tr><th>#</th><th>Actividad pendiente</th><th>Entregable</th><th>Tiempo estimado</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Validación con usuarios neurodivergentes (2–3)</td><td>Informe de usabilidad</td><td>4–5 días</td></tr>
+<tr><td>2</td><td>Exportación del CV a PDF</td><td>Botón «Descargar PDF»</td><td>2–3 días</td></tr>
+<tr><td>3</td><td>Migración y respaldo de la base de datos</td><td>Script de migración</td><td>2 días</td></tr>
+<tr><td>4</td><td>Pruebas E2E completas en navegador</td><td>Checklist con evidencias</td><td>2 días</td></tr>
+<tr><td>5</td><td>Revisión de accesibilidad (WCAG 2.2 AA)</td><td>Informe de conformidad</td><td>2–3 días</td></tr>
+<tr><td>6</td><td>Refinamiento UI/UX según hallazgos</td><td>Ajustes documentados</td><td>3 días</td></tr>
+<tr><td>7</td><td>Documentación final y memoria</td><td>Memoria + diagramas</td><td>4–5 días</td></tr>
+<tr><td>8</td><td>Presentación y demo</td><td>Diapositivas + video</td><td>2 días</td></tr>
+</tbody>
+</table>
+<p><b>Recursos:</b> desarrollo individual, asesoría del profesor y usuarios voluntarios.
+<b>Tiempo total estimado:</b> aproximadamente 4 semanas. <b>Entregables planeados:</b>
+prototipo completo, base de datos con migración, suite de pruebas en verde, memoria técnica,
+manual de usuario y evidencias (repositorio, capturas, video).</p>
+
+</body>
+</html>

@@ -51,7 +51,7 @@ con vista previa antes de descargar y fechas alineadas a la derecha.
 > deliberada. Su modelo es *local-first*: la información permanece en el equipo de la
 > persona y no existe un servidor de cuentas en la nube. Añadir un *login* obligaría a
 > almacenar datos personales en un servidor, lo que contradiría el principio de
-> minimización documentado en `docs/07-seguridad.md`. El acceso se resuelve con un
+> minimización documentado en [`docs/07-seguridad.md`](../docs/07-seguridad.md). El acceso se resuelve con un
 > perfil local en el dispositivo. Esta decisión puede revisarse si el proyecto requiere
 > multiusuario.
 
@@ -113,7 +113,7 @@ workspace (raíz)
 
 Cada tabla tiene **clave primaria**; las tablas hijas referencian `workspace(id)` con
 `ON DELETE CASCADE`. El DDL completo está en `server/db.js` (constante `SCHEMA_SQL`) y
-documentado en `docs/13-base-de-datos.md`.
+documentado en [`docs/13-base-de-datos.md`](../docs/13-base-de-datos.md).
 
 ### 3.3 Conexión con la aplicación
 
@@ -147,10 +147,10 @@ La clave de API **nunca** viaja al navegador: se inyecta en el servidor desde
 | Evidencia | Ubicación | Qué demuestra |
 |---|---|---|
 | Código fuente | [Repositorio público en GitHub](https://github.com/yahirortegasistemas-bit/-neurowork) | Implementación completa (rama `main`, commit `8d4c601`) |
-| Base de datos | `server/db.js`, `docs/13-base-de-datos.md` | Esquema relacional y relaciones |
+| Base de datos | `server/db.js`, [`docs/13-base-de-datos.md`](../docs/13-base-de-datos.md) | Esquema relacional y relaciones |
 | Pruebas automáticas | `tests/` (41 pruebas) | Calidad y verificación |
-| Documentación | `docs/01`–`15`, `README.md` | Diseño y funcionamiento |
-| Capturas de pantalla | *(insertar Figuras 1–N)* | Módulos en funcionamiento |
+| Documentación | [`docs/01`–`15`](../docs/), `README.md` | Diseño y funcionamiento |
+| Capturas de pantalla | [Figuras 1–15](figs/) | Módulos en funcionamiento (datos de ejemplo) |
 | Video de demostración | *(opcional, insertar enlace)* | Flujo principal en vivo |
 
 Comandos de verificación reproducibles:
@@ -162,10 +162,9 @@ curl http://127.0.0.1:8787/api/db
 ```
 
 > **Repositorio:** el código está publicado y accesible en
-> <https://github.com/yahirortegasistemas-bit/-neurowork> (rama `main`, commit `8d4c601`),
-> sin claves ni datos personales. Las capturas y el video deben insertarse como figuras
-> reales del sistema en ejecución (no se incluyen aquí para no presentar material que no
-> haya sido capturado).
+> <https://github.com/yahirortegasistemas-bit/-neurowork> (rama `main`), sin claves ni datos
+> personales. Las **capturas (Figuras 1–15)** están incluidas en [`informe/figs`](figs/) y en
+> la versión PDF del informe; el **video de funcionamiento** queda pendiente de grabación.
 
 ---
 
@@ -173,16 +172,16 @@ curl http://127.0.0.1:8787/api/db
 
 | Actividad planificada | Estado | Evidencia |
 |---|---|---|
-| Anteproyecto y análisis de requerimientos | Completado | `docs/01`, anteproyecto |
-| Diseño de arquitectura y modelo de datos | Completado | `docs/03`, `docs/13` |
-| Diseño de interfaz accesible | Completado | `styles.css`, `docs/12` |
+| Anteproyecto y análisis de requerimientos | Completado | [Descripción general](../docs/01-descripcion-general.md), anteproyecto |
+| Diseño de arquitectura y modelo de datos | Completado | [Arquitectura](../docs/03-arquitectura.md), [Base de datos](../docs/13-base-de-datos.md) |
+| Diseño de interfaz accesible | Completado | `styles.css`, [Accesibilidad](../docs/12-accesibilidad.md) |
 | Desarrollo de módulos funcionales (11) | Completado | `app.js` |
 | Integración de IA generativa | Completado (integración técnica) | `ai.js`, `server/server.js` |
 | Base de datos relacional | Parcial (diseñada e implementada en local) | `server/db.js` |
-| Módulo de minería de datos | Completado | `analytics.js`, `docs/06` |
-| Capacidades PWA / offline | Completado | `sw.js`, `docs/08` |
+| Módulo de minería de datos | Completado | `analytics.js`, [Minería de datos](../docs/06-mineria-de-datos.md) |
+| Capacidades PWA / offline | Completado | `sw.js`, [PWA](../docs/08-pwa.md) |
 | Pruebas técnicas | Completado | `tests/` (41 correctas) |
-| Documentación técnica | En curso | `docs/01`–`15` |
+| Documentación técnica | En curso | [`docs/01`–`15`](../docs/) |
 | Validación con usuarios | Pendiente | prevista en fase final |
 
 **Avance global estimado: ~85 %.** Se han consolidado todas las actividades técnicas;
@@ -213,7 +212,7 @@ npm test    # node --test
 - Verificación sintáctica con `node --check` en `app.js`, `ai.js`, `sw.js`, `server/*.js`.
 - `/api/health` operativo con `keyConfigured: true`.
 - Comprobación en vivo de `PUT/GET/DELETE /api/state` y `GET /api/db` (23 tablas).
-- Checklist manual en `docs/09-pruebas.md` (incluye respaldo en base de datos).
+- Checklist manual en [`docs/09-pruebas.md`](../docs/09-pruebas.md) (incluye respaldo en base de datos).
 
 ### 6.3 Correcciones aplicadas durante el desarrollo
 
@@ -236,15 +235,15 @@ neurodivergentes está planificada para la fase final (sección 8).
 
 ## 7. Documentación técnica (parcial)
 
-- **Diagrama de arquitectura y flujo:** `docs/03-arquitectura.md`, `docs/13-base-de-datos.md`.
-- **Especificación de módulos:** `docs/04-modulos-funcionales.md`.
-- **Flujos de IA:** `docs/05-flujos-de-ia.md`.
-- **Minería de datos:** `docs/06-mineria-de-datos.md`.
-- **Seguridad:** `docs/07-seguridad.md`.
-- **Pruebas:** `docs/09-pruebas.md`.
-- **Base de datos:** `docs/13-base-de-datos.md` (ER, tablas, endpoints, mapeo).
-- **Manual de usuario inicial:** `docs/14-manual-usuario.md`.
-- **Plan de cierre:** `docs/15-plan-fase-final.md`.
+- **Diagrama de arquitectura y flujo:** [Arquitectura del sistema](../docs/03-arquitectura.md) (`docs/03-arquitectura.md`) y [Base de datos](../docs/13-base-de-datos.md) (`docs/13-base-de-datos.md`).
+- **Especificación de módulos:** [Módulos funcionales](../docs/04-modulos-funcionales.md) (`docs/04-modulos-funcionales.md`).
+- **Flujos de IA:** [Flujos de IA](../docs/05-flujos-de-ia.md) (`docs/05-flujos-de-ia.md`).
+- **Minería de datos:** [Minería de datos](../docs/06-mineria-de-datos.md) (`docs/06-mineria-de-datos.md`).
+- **Seguridad:** [Seguridad](../docs/07-seguridad.md) (`docs/07-seguridad.md`).
+- **Pruebas:** [Pruebas](../docs/09-pruebas.md) (`docs/09-pruebas.md`).
+- **Base de datos:** [Base de datos](../docs/13-base-de-datos.md) (`docs/13-base-de-datos.md`): ER, tablas, endpoints y mapeo.
+- **Manual de usuario inicial:** [Manual de usuario](../docs/14-manual-usuario.md) (`docs/14-manual-usuario.md`).
+- **Plan de cierre:** [Plan de fase final](../docs/15-plan-fase-final.md) (`docs/15-plan-fase-final.md`).
 
 ---
 
