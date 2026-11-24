@@ -1,32 +1,25 @@
 # NeuroWork — Avance 2
 
-**Asistente Inteligente para la Búsqueda y Adaptación Laboral de Personas
-Neurodivergentes mediante Inteligencia Artificial Generativa y Minería de Datos**
+Asistente Inteligente para la Búsqueda y Adaptación Laboral de Personas
+Neurodivergentes mediante Inteligencia Artificial Generativa y Minería de Datos
 
-Yahir Ortega Ramos
-Instituto Tecnológico de Tijuana, Tijuana, Baja California, México
-L21212578@tectijuana.edu.mx
+Yahir Ortega Ramos  
+Equipo 5 (trabajo individual)  
+Instituto Tecnológico de Tijuana, Tijuana, Baja California, México  
+L21212578@tectijuana.edu.mx  
 Repositorio: <https://github.com/yahirortegasistemas-bit/-neurowork>
 
 ---
 
 ## Resumen
 
-Este documento reporta el avance correspondiente al **Avance 2** del proyecto
-NeuroWork. En esta etapa el sistema pasó de ser una propuesta a un **prototipo web
-funcional** con once módulos operativos, integración de inteligencia artificial
-generativa mediante un proxy seguro, y una **base de datos relacional** conectada a la
-aplicación. Se incorporó, además, un conjunto de **41 pruebas automáticas** (unitarias y
-de integración) que verifican la analítica, la generación de currículums, la base de
-datos y la API del servidor. La validación con personas usuarias queda prevista para la
-fase final.
+En este avance presento en qué quedó NeuroWork. Lo que en el anteproyecto era una propuesta ya es una aplicación web que se puede abrir, usar e instalar como PWA. Tiene once módulos operativos, un generador de currículums con IA, gráficas de progreso y una base de datos SQLite que guarda el estado del prototipo. Para comprobar que todo funcionara escribí 41 pruebas automáticas y las 41 pasan. Lo que todavía no hice es probar la aplicación con personas; eso quedó para la fase final.
 
 ---
 
 ## 1. Desarrollo funcional parcial
 
-El sistema se encuentra en una **fase operativa inicial estable**. La aplicación
-contempla once módulos, todos navegables y funcionales:
+Esta entrega ya no es solo un diseño. Los once módulos están en la interfaz y se puede navegar entre ellos:
 
 | Módulo | Estado | Función principal |
 |---|---|---|
@@ -34,7 +27,7 @@ contempla once módulos, todos navegables y funcionales:
 | Progreso | Funcional | Minería de datos y gráficas de avance |
 | Perfil | Funcional | Datos de contacto, experiencia y formación |
 | Habilidades | Funcional | Registro con categoría y nivel (1–5) |
-| CV | Funcional | Generación/adaptación con IA y **4 plantillas** descargables |
+| CV | Funcional | Generación/adaptación con IA y 4 plantillas descargables |
 | Entrevistas | Funcional | 4 pestañas: vacante, simulador, preparación y respuestas |
 | Reuniones | Funcional | Instrucciones → pasos + redacción asistida |
 | Checklist | Funcional | Tareas con repetición diaria |
@@ -42,36 +35,23 @@ contempla once módulos, todos navegables y funcionales:
 | Preferencias | Funcional | Modalidad, horario y ajustes |
 | Privacidad | Funcional | Transparencia sobre el manejo de datos |
 
-**Funcionalidad principal destacada (CV):** genera un borrador con IA a partir del
-perfil, permite adaptarlo a una vacante concreta y descargarlo en un documento `.doc`
-con cuatro diseños profesionales (*Moderno*, *Ejecutivo*, *Clásico*, *Minimalista*),
-con vista previa antes de descargar y fechas alineadas a la derecha.
+El módulo que más trabajo me tomó fue el de CV. Toma los datos del perfil, genera un borrador con IA, permite adaptarlo a una vacante pegada por la persona y exporta un archivo `.doc`. Por ahora la exportación es `.doc`, no PDF; el PDF quedó anotado para la fase final. Hay cuatro plantillas (*Moderno*, *Ejecutivo*, *Clásico* y *Minimalista*) y se puede ver el resultado antes de descargarlo. Las fechas salen alineadas a la derecha.
 
-> **Sobre el inicio de sesión:** NeuroWork **no implementa autenticación** de forma
-> deliberada. Su modelo es *local-first*: la información permanece en el equipo de la
-> persona y no existe un servidor de cuentas en la nube. Añadir un *login* obligaría a
-> almacenar datos personales en un servidor, lo que contradiría el principio de
-> minimización documentado en [`docs/07-seguridad.md`](../docs/07-seguridad.md). El acceso se resuelve con un
-> perfil local en el dispositivo. Esta decisión puede revisarse si el proyecto requiere
-> multiusuario.
+Sobre el inicio de sesión: no hay, y no fue un olvido. Como la aplicación guarda datos personales, poner un *login* significaría tener un servidor de cuentas y almacenar esa información fuera del equipo. Preferí que todo se quede en la misma máquina, como está explicado en [`docs/07-seguridad.md`](../docs/07-seguridad.md). Si más adelante se necesita que varias personas usen el sistema, la decisión se puede revisar.
 
 ---
 
 ## 2. Prototipo funcional / versión de prueba
 
-El prototipo es **ejecutable y navegable**, e instalable como aplicación (PWA).
-
-**Requisitos:** Node.js 22+ (para la base de datos) y un navegador moderno.
-
-**Ejecución:**
+Para ejecutarlo necesito Node.js 22 o superior y un navegador moderno. Arranco el servidor con:
 
 ```bash
 npm start          # o:  node server/server.js
 ```
 
-Luego abrir: `http://127.0.0.1:8787`
+y abro `http://127.0.0.1:8787`. La dirección importa: si abro el `index.html` como archivo (`file://`), la llamada a la IA falla y las funciones PWA tampoco responden bien.
 
-**Flujo principal demostrable:**
+Una demostración corta sigue este orden:
 
 1. Registrar perfil y habilidades.
 2. Generar un CV con IA y descargarlo en cualquiera de los 4 diseños.
@@ -80,8 +60,7 @@ Luego abrir: `http://127.0.0.1:8787`
 5. Registrar objetivos y checklist; ver el progreso en gráficas.
 6. Comprobar el respaldo en la base de datos (`/api/db`).
 
-La aplicación funciona **sin conexión** para todo lo local mediante un Service Worker;
-solo las funciones de IA requieren red.
+Todo lo que es local sigue funcionando sin conexión gracias al *Service Worker*. La IA es lo único que necesita internet.
 
 ---
 
@@ -89,31 +68,25 @@ solo las funciones de IA requieren red.
 
 ### 3.1 Decisión y estado
 
-Se integró una base de datos **relacional SQLite** usando el módulo nativo
-`node:sqlite` (sin dependencias externas). El archivo vive en
-`server/data/neurowork.db`, en el propio equipo, y está excluido del repositorio.
+En vez de instalar un paquete externo usé el módulo que ya trae Node 22, `node:sqlite`. El archivo queda en `server/data/neurowork.db`, en el propio equipo, y no se sube al repositorio. Un detalle: el módulo todavía imprime un `ExperimentalWarning` al arrancar, pero funciona sin banderas especiales.
 
-**Estado: diseñada e implementada parcialmente.** El prototipo ya guarda y recupera el
-estado completo en las tablas; queda pendiente la migración de datos antiguos y la
-sincronización multiusuario.
+La base ya guarda y recupera el estado completo del prototipo. Falta la migración de datos antiguos y, sobre todo, la sincronización entre equipos.
 
 ### 3.2 Esquema (23 tablas con relaciones)
 
 ```
 workspace (raíz)
- ├─1:1─ profile            ├─1:N─ experiences        ├─1:N─ skills
- ├─1:1─ preferences        ├─1:N─ education          ├─1:N─ languages
- ├─1:1─ prep_plans         ├─1:N─ certifications     ├─1:N─ projects
- ├─1:1─ vacancy_analyses   ├─1:N─ cv_documents ─N:1─ cv_templates
- ├─1:N─ checklist_items    ├─1:N─ goals              ├─1:N─ activity_log
- ├─1:N─ snapshots          ├─1:N─ prepared_answers   ├─1:N─ professional_links
- └─1:N─ meetings ─1:N─ meeting_steps
- └─1:N─ interview_sessions ─1:N─ interview_questions
+  ├─1:1─ profile            ├─1:N─ experiences        ├─1:N─ skills
+  ├─1:1─ preferences        ├─1:N─ education          ├─1:N─ languages
+  ├─1:1─ prep_plans         ├─1:N─ certifications     ├─1:N─ projects
+  ├─1:1─ vacancy_analyses   ├─1:N─ cv_documents ─N:1─ cv_templates
+  ├─1:N─ checklist_items    ├─1:N─ goals              ├─1:N─ activity_log
+  ├─1:N─ snapshots          ├─1:N─ prepared_answers   ├─1:N─ professional_links
+  └─1:N─ meetings ─1:N─ meeting_steps
+  └─1:N─ interview_sessions ─1:N─ interview_questions
 ```
 
-Cada tabla tiene **clave primaria**; las tablas hijas referencian `workspace(id)` con
-`ON DELETE CASCADE`. El DDL completo está en `server/db.js` (constante `SCHEMA_SQL`) y
-documentado en [`docs/13-base-de-datos.md`](../docs/13-base-de-datos.md).
+Cada tabla tiene clave primaria y las tablas hijas apuntan a `workspace(id)` con `ON DELETE CASCADE`. El DDL completo está en `server/db.js` (constante `SCHEMA_SQL`) y está descrito en [`docs/13-base-de-datos.md`](../docs/13-base-de-datos.md).
 
 ### 3.3 Conexión con la aplicación
 
@@ -124,8 +97,7 @@ documentado en [`docs/13-base-de-datos.md`](../docs/13-base-de-datos.md).
 | `DELETE` | `/api/state` | Borra el respaldo ("Reiniciar datos") |
 | `GET` | `/api/db` | Motor, ruta y conteo de filas por tabla |
 
-La persistencia es doble y transparente: **localStorage siempre** y, si el servidor
-está activo, **respaldo en SQLite**. Si no hay servidor, la app sigue funcionando igual.
+El guardado es doble: `localStorage` siempre y, si el servidor está levantado, también SQLite. Si no hay servidor, la aplicación sigue funcionando igual. Al arrancar solo se recupera del servidor cuando no hay datos locales, para no sobrescribir lo que la persona ya venía usando.
 
 ### 3.4 Arquitectura general
 
@@ -137,8 +109,7 @@ ai.js                ──POST────►   /api/gemini ──x-goog-api-ke
 sw.js (offline)                    estáticos
 ```
 
-La clave de API **nunca** viaja al navegador: se inyecta en el servidor desde
-`server/.env`.
+La llave de Gemini no viaja al navegador. Se lee en el servidor desde `server/.env` y de ahí se manda a la API.
 
 ---
 
@@ -146,14 +117,16 @@ La clave de API **nunca** viaja al navegador: se inyecta en el servidor desde
 
 | Evidencia | Ubicación | Qué demuestra |
 |---|---|---|
-| Código fuente | [Repositorio público en GitHub](https://github.com/yahirortegasistemas-bit/-neurowork) | Implementación completa (rama `main`, commit `8d4c601`) |
+| Código fuente | [Repositorio público en GitHub](https://github.com/yahirortegasistemas-bit/-neurowork) | Implementación en la rama `main` |
 | Base de datos | `server/db.js`, [`docs/13-base-de-datos.md`](../docs/13-base-de-datos.md) | Esquema relacional y relaciones |
-| Pruebas automáticas | `tests/` (41 pruebas) | Calidad y verificación |
+| Pruebas automáticas | `tests/` (41 pruebas) | Verificación de analítica, CV, BD y API |
 | Documentación | [`docs/01`–`15`](../docs/), `README.md` | Diseño y funcionamiento |
 | Capturas de pantalla | [Figuras 1–15](figs/) | Módulos en funcionamiento (datos de ejemplo) |
-| Video de demostración | *(opcional, insertar enlace)* | Flujo principal en vivo |
+| Video de demostración | Sin grabar todavía | Flujo principal en vivo (fase final) |
 
-Comandos de verificación reproducibles:
+Las capturas se tomaron con datos de ejemplo, no con información real de nadie, y están en [`informe/figs`](figs/) y dentro del PDF con los números del 1 al 15. El video aún no está grabado; el guion ya está escrito en [`informe/guion-video.md`](guion-video.md).
+
+Comandos para repetir la verificación:
 
 ```bash
 npm test                       # 41 pruebas correctas
@@ -161,17 +134,13 @@ node tools/db-info.js          # 23 tablas y conteo de filas
 curl http://127.0.0.1:8787/api/db
 ```
 
-> **Repositorio:** el código está publicado y accesible en
-> <https://github.com/yahirortegasistemas-bit/-neurowork> (rama `main`), sin claves ni datos
-> personales. Las **capturas (Figuras 1–15)** están incluidas en [`informe/figs`](figs/) y en
-> la versión PDF del informe; el **video de funcionamiento** queda pendiente de grabación.
+El código está publicado en <https://github.com/yahirortegasistemas-bit/-neurowork> (rama `main`). No hay claves ni datos personales en el repositorio.
 
 ---
 
 ## 5. Comparación con el cronograma inicial
 
-El anteproyecto definió **20 actividades** distribuidas de agosto a diciembre de 2026. La
-siguiente tabla compara lo **planeado** con lo **entregado** a la fecha del Avance 2.
+Mi cronograma original contemplaba 20 actividades entre agosto y diciembre de 2026. En la tabla pongo a la par lo que estaba previsto y lo que hay hoy:
 
 | # | Actividad del cronograma | Periodo | Planeado | Entregado (Avance 2) | Evidencia |
 |---|---|---|---|---|---|
@@ -196,10 +165,7 @@ siguiente tabla compara lo **planeado** con lo **entregado** a la fecha del Avan
 | 19 | Documentación del proyecto | Ago–Dic | En progreso | En progreso | [`docs/01`–`15`](../docs/) |
 | 20 | Presentación y entrega del proyecto | Dic | Pendiente | Pendiente (2 dic) | — |
 
-**Avance global: ~75 %**, según el cronograma de seguimiento del anteproyecto. A la fecha,
-dos actividades planeadas para noviembre (**minería de datos** y **pruebas funcionales**) ya
-están adelantadas, por lo que el avance técnico es igual o ligeramente superior. Lo que resta
-es la **prueba de usabilidad con personas** y la **presentación final**.
+El documento de seguimiento marca un avance global de **~75 %**. Hay dos actividades que se adelantaron: la minería de datos y las pruebas funcionales, que ya están implementadas aunque en el cronograma aparecieran en noviembre como pendientes. Lo que sigue pendiente de verdad es la prueba con personas y la entrega final del 2 de diciembre.
 
 ---
 
@@ -207,11 +173,7 @@ es la **prueba de usabilidad con personas** y la **presentación final**.
 
 ### 6.1 Pruebas automáticas
 
-```bash
-npm test    # node --test
-```
-
-**Resultado: 41 pruebas, 41 correctas, 0 fallos.**
+Ejecuto `npm test` (que llama a `node --test`). Resultado: 41 pruebas, 41 correctas, ningún fallo.
 
 | Archivo | Casos | Cubre |
 |---|---|---|
@@ -223,41 +185,26 @@ npm test    # node --test
 
 ### 6.2 Verificación manual
 
-- Verificación sintáctica con `node --check` en `app.js`, `ai.js`, `sw.js`, `server/*.js`.
-- `/api/health` operativo con `keyConfigured: true`.
-- Comprobación en vivo de `PUT/GET/DELETE /api/state` y `GET /api/db` (23 tablas).
-- Checklist manual en [`docs/09-pruebas.md`](../docs/09-pruebas.md) (incluye respaldo en base de datos).
+Además de las pruebas automáticas pasé `node --check` a `app.js`, `ai.js`, `sw.js` y a los archivos de `server/`. También comprobé que `/api/health` responda con `keyConfigured: true` y probé en vivo `PUT`, `GET` y `DELETE` en `/api/state`, además de `/api/db` (23 tablas). La lista completa está en [`docs/09-pruebas.md`](../docs/09-pruebas.md).
 
 ### 6.3 Correcciones aplicadas durante el desarrollo
 
-- **Conexión con la IA:** error `Failed to fetch` por abrir la app como archivo
-  (`file://`); se resolvió sirviendo por HTTP y mostrando un mensaje orientador.
-- **Caché PWA:** se incrementó la versión del Service Worker (`neurowork-v3`) para
-  invalidar la caché anterior.
-- **Diseño del CV:** se rediseñó el generador (4 plantillas, fechas alineadas,
-  deduplicación de contacto).
-- **Codificación:** se garantizó UTF-8 en los documentos `.doc` (prefijo BOM) y en el
-  entorno de trabajo.
+Fueron saliendo detalles concretos mientras probaba:
+
+- Al abrir la aplicación como archivo (`file://`), la IA devolvía `Failed to fetch`. Lo resolví sirviendo la app por HTTP y dejando un mensaje que explica al usuario qué pasó.
+- La caché del *Service Worker* se quedaba vieja entre pruebas; subí la versión a `neurowork-v3`.
+- El generador de CV se rehízo para incluir las cuatro plantillas, alinear las fechas a la derecha y no repetir los datos de contacto.
+- Los documentos `.doc` salían con caracteres mal en Windows; se agregó el prefijo BOM para garantizar UTF-8.
 
 ### 6.4 Retroalimentación
 
-**Aún no se ha realizado validación con usuarios finales.** No se reportan opiniones ni
-resultados que no se hayan recogido formalmente. La prueba piloto con 2–3 personas
-neurodivergentes está planificada para la fase final (sección 8).
+No tengo resultados de usuarios todavía, así que no voy a inventarlos. La prueba piloto con 2–3 personas neurodivergentes está planeada para la fase final (sección 8).
 
 ---
 
 ## 7. Documentación técnica (parcial)
 
-- **Diagrama de arquitectura y flujo:** [Arquitectura del sistema](../docs/03-arquitectura.md) (`docs/03-arquitectura.md`) y [Base de datos](../docs/13-base-de-datos.md) (`docs/13-base-de-datos.md`).
-- **Especificación de módulos:** [Módulos funcionales](../docs/04-modulos-funcionales.md) (`docs/04-modulos-funcionales.md`).
-- **Flujos de IA:** [Flujos de IA](../docs/05-flujos-de-ia.md) (`docs/05-flujos-de-ia.md`).
-- **Minería de datos:** [Minería de datos](../docs/06-mineria-de-datos.md) (`docs/06-mineria-de-datos.md`).
-- **Seguridad:** [Seguridad](../docs/07-seguridad.md) (`docs/07-seguridad.md`).
-- **Pruebas:** [Pruebas](../docs/09-pruebas.md) (`docs/09-pruebas.md`).
-- **Base de datos:** [Base de datos](../docs/13-base-de-datos.md) (`docs/13-base-de-datos.md`): ER, tablas, endpoints y mapeo.
-- **Manual de usuario inicial:** [Manual de usuario](../docs/14-manual-usuario.md) (`docs/14-manual-usuario.md`).
-- **Plan de cierre:** [Plan de fase final](../docs/15-plan-fase-final.md) (`docs/15-plan-fase-final.md`).
+En `docs/` dejé la arquitectura y el flujo del sistema ([`docs/03`](../docs/03-arquitectura.md) y [`docs/13`](../docs/13-base-de-datos.md)), la especificación de los módulos ([`docs/04`](../docs/04-modulos-funcionales.md)), los flujos de IA ([`docs/05`](../docs/05-flujos-de-ia.md)), la minería de datos ([`docs/06`](../docs/06-mineria-de-datos.md)), seguridad ([`docs/07`](../docs/07-seguridad.md)) y pruebas ([`docs/09`](../docs/09-pruebas.md)). El manual de usuario inicial está en [`docs/14`](../docs/14-manual-usuario.md) y el plan de cierre en [`docs/15`](../docs/15-plan-fase-final.md).
 
 ---
 
@@ -274,12 +221,9 @@ neurodivergentes está planificada para la fase final (sección 8).
 | 7 | Documentación final y memoria | Memoria + diagramas | 4–5 días |
 | 8 | Presentación y demo | Diapositivas + video | 2 días |
 
-**Recursos:** desarrollo individual, asesoría del profesor y usuarios voluntarios.
-**Tiempo total estimado:** ~4 semanas. **Fecha de entrega final:** 2 de diciembre de 2026.
+Los recursos son el desarrollo individual, la asesoría del profesor y personas voluntarias para las pruebas. Calculo unas 4 semanas. La entrega final del proyecto está fijada para el 2 de diciembre de 2026.
 
-**Entregables planeados para la entrega final:** prototipo completo, base de datos con
-migración, suite de pruebas en verde, memoria técnica, manual de usuario y evidencias
-(repositorio, capturas, video).
+Al cerrar entrego el prototipo completo, la base de datos con su migración, las pruebas en verde, la memoria técnica, el manual de usuario y las evidencias (repositorio, capturas y video).
 
 ---
 

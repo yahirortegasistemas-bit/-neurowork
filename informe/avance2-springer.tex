@@ -17,20 +17,19 @@
 \title{NeuroWork: asistente inteligente para la búsqueda y adaptación laboral de personas neurodivergentes mediante inteligencia artificial generativa y minería de datos}
 
 \author{Yahir Ortega Ramos}
-\institute{Instituto Tecnológico de Tijuana, Tijuana, Baja California, México\\
+\institute{Equipo 5 (trabajo individual)\\
+Instituto Tecnológico de Tijuana, Tijuana, Baja California, México\\
 \email{L21212578@tectijuana.edu.mx}}
 
 \maketitle
 
 \begin{abstract}
-Este documento reporta el avance del proyecto NeuroWork, una aplicación web (PWA) de apoyo
-a la búsqueda de empleo para personas neurodivergentes. En esta etapa el sistema pasó de
-propuesta a un \textbf{prototipo funcional} con once módulos operativos, integración de
-inteligencia artificial generativa mediante un proxy seguro y una \textbf{base de datos
-relacional} (SQLite) conectada a la aplicación. Se incorporó un conjunto de \textbf{41
-pruebas automáticas} que verifican la analítica, la generación de currículums, la base de
-datos y la API del servidor. La validación con personas usuarias se planifica para la fase
-final. El avance global es de aproximadamente 75\,\%.
+En este avance presento en qué quedó NeuroWork. Lo que en el anteproyecto era una propuesta
+ya es una aplicación web que se puede abrir, usar e instalar como PWA. Tiene once módulos
+operativos, un generador de currículums con IA, gráficas de progreso y una base de datos
+SQLite que guarda el estado del prototipo. Para comprobar que todo funcionara escribí 41
+pruebas automáticas y las 41 pasan. Lo que todavía no hice es probar la aplicación con
+personas; eso quedó para la fase final. El avance global es de aproximadamente 75\,\%.
 
 \keywords{neurodivergencia \and búsqueda de empleo \and inteligencia artificial generativa \and minería de datos \and SQLite \and accesibilidad.}
 \end{abstract}
@@ -38,8 +37,8 @@ final. El avance global es de aproximadamente 75\,\%.
 \noindent Repositorio: \url{https://github.com/yahirortegasistemas-bit/-neurowork}
 
 \section{Desarrollo funcional parcial}
-El sistema se encuentra en una \textbf{fase operativa inicial estable}. La aplicación
-contempla once módulos, todos navegables y funcionales (Tabla~\ref{tab:modulos}).
+Esta entrega ya no es solo un diseño. Los once módulos están en la interfaz y se puede
+navegar entre ellos (Tabla~\ref{tab:modulos}).
 
 \begin{table}[htbp]
 \caption{Módulos del sistema y su estado.}
@@ -65,23 +64,25 @@ Privacidad & Funcional & Transparencia sobre el manejo de datos\\
 \end{tabular}
 \end{table}
 
-\textbf{Funcionalidad destacada (CV).} Genera un borrador con IA a partir del perfil, permite
-adaptarlo a una vacante concreta y descargarlo en un documento \texttt{.doc} con cuatro
-diseños profesionales (\emph{Moderno}, \emph{Ejecutivo}, \emph{Clásico} y \emph{Minimalista}),
-con vista previa antes de descargar y fechas alineadas a la derecha.
+El módulo que más trabajo me tomó fue el de CV. Toma los datos del perfil, genera un borrador
+con IA, permite adaptarlo a una vacante pegada por la persona y exporta un archivo
+\texttt{.doc}. Por ahora la exportación es \texttt{.doc}, no PDF; el PDF quedó anotado para
+la fase final. Hay cuatro plantillas (\emph{Moderno}, \emph{Ejecutivo}, \emph{Clásico} y
+\emph{Minimalista}) y se puede ver el resultado antes de descargarlo. Las fechas salen
+alineadas a la derecha.
 
-\textbf{Sobre el inicio de sesión.} NeuroWork \textbf{no implementa autenticación} de forma
-deliberada. Su modelo es \emph{local-first}: la información permanece en el equipo de la
-persona y no existe un servidor de cuentas en la nube. Añadir un \emph{login} obligaría a
-almacenar datos personales en un servidor, lo que contradiría el principio de minimización.
-Esta decisión puede revisarse si el proyecto requiere operación multiusuario.
+Sobre el inicio de sesión: no hay, y no fue un olvido. Como la aplicación guarda datos
+personales, poner un \emph{login} significaría tener un servidor de cuentas y almacenar esa
+información fuera del equipo. Preferí que todo se quede en la misma máquina. Si más adelante
+se necesita que varias personas usen el sistema, la decisión se puede revisar.
 
 \section{Prototipo funcional / versión de prueba}
-El prototipo es \textbf{ejecutable y navegable}, e instalable como aplicación (PWA).
-\textbf{Requisitos:} Node.js 22+ y un navegador moderno. \textbf{Ejecución:}
-\texttt{node server/server.js} y abrir \texttt{http://127.0.0.1:8787}.
+Para ejecutarlo necesito Node.js 22 o superior y un navegador moderno. Arranco el servidor con
+\texttt{node server/server.js} y abro \texttt{http://127.0.0.1:8787}. La dirección importa: si
+abro el \texttt{index.html} como archivo (\texttt{file://}), la llamada a la IA falla y las
+funciones PWA tampoco responden bien.
 
-\noindent\textbf{Flujo principal demostrable:}
+\noindent Una demostración corta sigue este orden:
 \begin{enumerate}
 \item Registrar perfil y habilidades.
 \item Generar un CV con IA y descargarlo en cualquiera de los cuatro diseños.
@@ -90,16 +91,16 @@ El prototipo es \textbf{ejecutable y navegable}, e instalable como aplicación (
 \item Registrar objetivos y checklist; observar el progreso en gráficas.
 \item Comprobar el respaldo en la base de datos (\texttt{/api/db}).
 \end{enumerate}
-La aplicación funciona \textbf{sin conexión} para todo lo local mediante un \emph{Service
-Worker}; solo las funciones de IA requieren red.
+Todo lo que es local sigue funcionando sin conexión gracias al \emph{Service Worker}. La IA
+es lo único que necesita internet.
 
 \section{Avance de la base de datos y arquitectura}
 \subsection{Decisión y estado}
-Se integró una base de datos \textbf{relacional SQLite} usando el módulo nativo
-\texttt{node:sqlite} (sin dependencias externas). El archivo reside en
-\texttt{server/data/neurowork.db}, en el propio equipo, y está excluido del repositorio.
-\textbf{Estado:} diseñada e implementada parcialmente; queda pendiente la migración de datos
-antiguos y la sincronización multiusuario.
+En vez de instalar un paquete externo usé el módulo que ya trae Node 22, \texttt{node:sqlite}.
+El archivo queda en \texttt{server/data/neurowork.db}, en el propio equipo, y no se sube al
+repositorio. Un detalle: el módulo todavía imprime un \texttt{ExperimentalWarning} al arrancar,
+pero funciona sin banderas especiales. La base ya guarda y recupera el estado completo del
+prototipo. Falta la migración de datos antiguos y, sobre todo, la sincronización entre equipos.
 
 \subsection{Esquema (23 tablas con relaciones)}
 \begin{verbatim}
@@ -117,9 +118,10 @@ Cada tabla tiene clave primaria; las tablas hijas referencian \texttt{workspace(
 \texttt{ON DELETE CASCADE}. El DDL completo está en \texttt{server/db.js}.
 
 \subsection{Conexión con la aplicación}
-La persistencia es doble y transparente: \textbf{localStorage siempre} y, si el servidor
-está activo, \textbf{respaldo en SQLite}. Si no hay servidor, la app sigue funcionando igual.
-La clave de API nunca viaja al navegador: se inyecta en el servidor desde
+El guardado es doble: \texttt{localStorage} siempre y, si el servidor está levantado, también
+SQLite. Si no hay servidor, la aplicación sigue funcionando igual. Al arrancar solo se
+recupera del servidor cuando no hay datos locales, para no sobrescribir lo que la persona ya
+venía usando. La llave de Gemini no viaja al navegador; se lee en el servidor desde
 \texttt{server/.env} (Tabla~\ref{tab:api}).
 
 \begin{table}[htbp]
@@ -140,8 +142,9 @@ GET & \texttt{/api/db} & Motor, ruta y conteo de filas por tabla\\
 \end{table}
 
 \section{Evidencias del avance}
-Las siguientes capturas corresponden al prototipo en ejecución con \textbf{datos de ejemplo},
-tomadas automáticamente con un navegador en modo sin interfaz.
+Las capturas se tomaron con datos de ejemplo, no con información real de nadie. Se obtuvieron
+con un navegador en modo sin interfaz y están numeradas del 1 al 15. El video de demostración
+aún no está grabado; el guion ya está escrito.
 
 \begin{figure}[htbp]
 \centering
@@ -209,8 +212,8 @@ tomadas automáticamente con un navegador en modo sin interfaz.
 \end{figure}
 
 \section{Comparación con el cronograma inicial}
-El anteproyecto definió 20 actividades de agosto a diciembre de 2026. La
-Tabla~\ref{tab:cronograma} compara lo planeado con lo entregado a la fecha del Avance 2.
+Mi cronograma original contemplaba 20 actividades entre agosto y diciembre de 2026. En la
+Tabla~\ref{tab:cronograma} pongo a la par lo que estaba previsto y lo que hay hoy.
 
 \begin{table}[htbp]
 \caption{Comparación con el cronograma inicial (planeado vs. entregado).}
@@ -245,14 +248,15 @@ Tabla~\ref{tab:cronograma} compara lo planeado con lo entregado a la fecha del A
 \end{tabular}
 \end{table}
 
-\textbf{Avance global: $\sim$75\,\%}, según el cronograma del anteproyecto. Dos actividades
-planeadas para noviembre (minería de datos y pruebas funcionales) ya están adelantadas, por
-lo que el avance técnico es igual o ligeramente superior. Restan la prueba de usabilidad con
-personas y la presentación final.
+El documento de seguimiento marca un avance global de $\sim$75\,\%. Hay dos actividades que
+se adelantaron: la minería de datos y las pruebas funcionales, que ya están implementadas
+aunque en el cronograma aparecieran en noviembre como pendientes. Lo que sigue pendiente de
+verdad es la prueba con personas y la entrega final del 2 de diciembre.
 
 \section{Pruebas preliminares y validaciones}
 \subsection{Pruebas automáticas}
-Resultado: \textbf{41 pruebas, 41 correctas, 0 fallos} (Tabla~\ref{tab:pruebas}).
+Ejecuto \texttt{npm test} (que llama a \texttt{node --test}). Resultado: 41 pruebas, 41
+correctas, ningún fallo (Tabla~\ref{tab:pruebas}).
 
 \begin{table}[htbp]
 \caption{Distribución de las pruebas automáticas.}
@@ -273,27 +277,31 @@ Archivo & Casos & Cubre\\
 \end{table}
 
 \subsection{Verificación manual y correcciones}
-Verificación sintáctica con \texttt{node --check}; \texttt{/api/health} operativo;
-comprobación en vivo de \texttt{PUT/GET/DELETE /api/state} y \texttt{GET /api/db} (23
-tablas). Correcciones aplicadas: error \texttt{Failed to fetch} al abrir la app como archivo
-(resuelto sirviendo por HTTP), incremento de la versión de caché del \emph{Service Worker},
-rediseño del generador de CV (cuatro plantillas, fechas alineadas) y UTF-8 en los documentos
-\texttt{.doc}.
+Además de las pruebas automáticas pasé \texttt{node --check} a \texttt{app.js}, \texttt{ai.js},
+\texttt{sw.js} y a los archivos de \texttt{server/}. También comprobé que \texttt{/api/health}
+responda con \texttt{keyConfigured: true} y probé en vivo \texttt{PUT}, \texttt{GET} y
+\texttt{DELETE} en \texttt{/api/state}, además de \texttt{GET /api/db} (23 tablas).
+
+Fueron saliendo detalles concretos mientras probaba: al abrir la aplicación como archivo
+(\texttt{file://}), la IA devolvía \texttt{Failed to fetch}, así que la serví por HTTP y dejé
+un mensaje que explica qué pasó. La caché del \emph{Service Worker} se quedaba vieja entre
+pruebas y subí la versión a \texttt{neurowork-v3}. El generador de CV se rehízo para incluir
+las cuatro plantillas, alinear las fechas a la derecha y no repetir los datos de contacto. Los
+documentos \texttt{.doc} salían con caracteres mal en Windows; se agregó el prefijo BOM para
+garantizar UTF-8.
 
 \subsection{Retroalimentación}
-\textbf{Aún no se ha realizado validación con usuarios finales.} No se reportan opiniones ni
-resultados que no se hayan recogido formalmente. La prueba piloto con 2--3 personas
-neurodivergentes está planificada para la fase final.
+No tengo resultados de usuarios todavía, así que no voy a inventarlos. La prueba piloto con
+2--3 personas neurodivergentes está planeada para la fase final.
 
 \section{Documentación técnica}
-Diagrama de arquitectura y flujo: Arquitectura del sistema
-(\texttt{docs/03-arquitectura.md}) y Base de datos (\texttt{docs/13-base-de-datos.md}).
-Especificación de módulos: Módulos funcionales (\texttt{docs/04-modulos-funcionales.md}).
-Flujos de IA: (\texttt{docs/05-flujos-de-ia.md}). Minería de datos:
-(\texttt{docs/06-mineria-de-datos.md}). Seguridad: (\texttt{docs/07-seguridad.md}).
-Base de datos: (\texttt{docs/13-base-de-datos.md}); ER, tablas, endpoints y mapeo.
-Manual de usuario inicial: (\texttt{docs/14-manual-usuario.md}). Plan de cierre:
-(\texttt{docs/15-plan-fase-final.md}).
+En \texttt{docs/} dejé la arquitectura y el flujo del sistema
+(\texttt{docs/03-arquitectura.md} y \texttt{docs/13-base-de-datos.md}), la especificación de
+los módulos (\texttt{docs/04-modulos-funcionales.md}), los flujos de IA
+(\texttt{docs/05-flujos-de-ia.md}), la minería de datos (\texttt{docs/06-mineria-de-datos.md}),
+seguridad (\texttt{docs/07-seguridad.md}) y pruebas (\texttt{docs/09-pruebas.md}). El manual de
+usuario inicial está en \texttt{docs/14-manual-usuario.md} y el plan de cierre en
+\texttt{docs/15-plan-fase-final.md}.
 
 \section{Plan de trabajo para la fase final}
 \begin{table}[htbp]
@@ -317,10 +325,10 @@ Manual de usuario inicial: (\texttt{docs/14-manual-usuario.md}). Plan de cierre:
 \end{tabular}
 \end{table}
 
-\noindent\textbf{Recursos:} desarrollo individual, asesoría del profesor y usuarios
-voluntarios. \textbf{Tiempo total estimado:} $\sim$4 semanas. \textbf{Fecha de entrega
-final:} 2 de diciembre de 2026. \textbf{Entregables
-planeados:} prototipo completo, base de datos con migración, suite de pruebas en verde,
-memoria técnica, manual de usuario y evidencias (repositorio, capturas, video).
+\noindent Los recursos son el desarrollo individual, la asesoría del profesor y personas
+voluntarias para las pruebas. Calculo unas 4 semanas. La entrega final del proyecto está
+fijada para el 2 de diciembre de 2026. Al cerrar entrego el prototipo completo, la base de
+datos con su migración, las pruebas en verde, la memoria técnica, el manual de usuario y las
+evidencias (repositorio, capturas y video).
 
 \end{document}

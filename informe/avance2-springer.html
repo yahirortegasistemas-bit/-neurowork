@@ -41,18 +41,16 @@
 
 <div class="title">NeuroWork: asistente inteligente para la búsqueda y adaptación laboral de personas neurodivergentes mediante inteligencia artificial generativa y minería de datos</div>
 <p class="author">Yahir Ortega Ramos</p>
-<p class="affil">Instituto Tecnológico de Tijuana, Tijuana, Baja California, México<br>L21212578@tectijuana.edu.mx</p>
+<p class="affil">Equipo 5 (trabajo individual)<br>Instituto Tecnológico de Tijuana, Tijuana, Baja California, México<br>L21212578@tectijuana.edu.mx</p>
 <p class="repo">Avance 2 · Repositorio: https://github.com/yahirortegasistemas-bit/-neurowork</p>
 
 <div class="abstract">
-<b>Resumen.</b> Este documento reporta el avance del proyecto NeuroWork, una aplicación web
-(PWA) de apoyo a la búsqueda de empleo para personas neurodivergentes. En esta etapa el
-sistema pasó de propuesta a un <b>prototipo funcional</b> con once módulos operativos,
-integración de inteligencia artificial generativa mediante un proxy seguro y una
-<b>base de datos relacional</b> (SQLite) conectada a la aplicación. Se incorporó un
-conjunto de <b>41 pruebas automáticas</b> que verifican la analítica, la generación de
-currículums, la base de datos y la API del servidor. La validación con personas usuarias
-se planifica para la fase final. El avance global es de aproximadamente 75&nbsp;%.
+<b>Resumen.</b> En este avance presento en qué quedó NeuroWork. Lo que en el anteproyecto era
+una propuesta ya es una aplicación web que se puede abrir, usar e instalar como PWA. Tiene
+once módulos operativos, un generador de currículums con IA, gráficas de progreso y una base
+de datos SQLite que guarda el estado del prototipo. Para comprobar que todo funcionara escribí
+41 pruebas automáticas y las 41 pasan. Lo que todavía no hice es probar la aplicación con
+personas; eso quedó para la fase final. El avance global es de aproximadamente 75&nbsp;%.
 <br><br>
 <b>Palabras clave:</b> neurodivergencia · búsqueda de empleo · inteligencia artificial
 generativa · minería de datos · SQLite · accesibilidad.
@@ -61,8 +59,8 @@ generativa · minería de datos · SQLite · accesibilidad.
 <hr>
 
 <h2>1. Desarrollo funcional parcial</h2>
-<p>El sistema se encuentra en una <b>fase operativa inicial estable</b>. La aplicación
-contempla once módulos, todos navegables y funcionales:</p>
+<p>Esta entrega ya no es solo un diseño. Los once módulos están en la interfaz y se puede
+navegar entre ellos.</p>
 <table>
 <thead><tr><th>Módulo</th><th>Estado</th><th>Función principal</th></tr></thead>
 <tbody>
@@ -79,51 +77,55 @@ contempla once módulos, todos navegables y funcionales:</p>
 <tr><td>Privacidad</td><td>Funcional</td><td>Transparencia sobre el manejo de datos</td></tr>
 </tbody>
 </table>
-<p><b>Funcionalidad destacada (CV).</b> Genera un borrador con IA a partir del perfil,
-permite adaptarlo a una vacante concreta y descargarlo en un documento <code>.doc</code> con
-cuatro diseños profesionales (<i>Moderno</i>, <i>Ejecutivo</i>, <i>Clásico</i> y
-<i>Minimalista</i>), con vista previa antes de descargar y fechas alineadas a la derecha.</p>
-<p><b>Sobre el inicio de sesión.</b> NeuroWork <b>no implementa autenticación</b> de forma
-deliberada. Su modelo es <i>local-first</i>: la información permanece en el equipo de la
-persona y no existe un servidor de cuentas en la nube. Añadir un <i>login</i> obligaría a
-almacenar datos personales en un servidor, lo que contradiría el principio de minimización
-documentado. Esta decisión puede revisarse si el proyecto requiere operación multiusuario.</p>
+<p>El módulo que más trabajo me tomó fue el de CV. Toma los datos del perfil, genera un
+borrador con IA, permite adaptarlo a una vacante pegada por la persona y exporta un archivo
+<code>.doc</code>. Por ahora la exportación es <code>.doc</code>, no PDF; el PDF quedó anotado
+para la fase final. Hay cuatro plantillas (<i>Moderno</i>, <i>Ejecutivo</i>, <i>Clásico</i> y
+<i>Minimalista</i>) y se puede ver el resultado antes de descargarlo. Las fechas salen
+alineadas a la derecha.</p>
+<p>Sobre el inicio de sesión: no hay, y no fue un olvido. Como la aplicación guarda datos
+personales, poner un <i>login</i> significaría tener un servidor de cuentas y almacenar esa
+información fuera del equipo. Preferí que todo se quede en la misma máquina. Si más adelante
+se necesita que varias personas usen el sistema, la decisión se puede revisar.</p>
 
 <h2>2. Prototipo funcional / versión de prueba</h2>
-<p>El prototipo es <b>ejecutable y navegable</b>, e instalable como aplicación (PWA).
-<b>Requisitos:</b> Node.js 22+ y un navegador moderno. <b>Ejecución:</b>
-<code>node server/server.js</code> y abrir <code>http://127.0.0.1:8787</code>.</p>
-<p><b>Flujo principal demostrable:</b></p>
+<p>Para ejecutarlo necesito Node.js 22 o superior y un navegador moderno. Arranco el servidor
+con <code>node server/server.js</code> y abro <code>http://127.0.0.1:8787</code>. La dirección
+importa: si abro el <code>index.html</code> como archivo (<code>file://</code>), la llamada a
+la IA falla y las funciones PWA tampoco responden bien.</p>
+<p>Una demostración corta sigue este orden:</p>
 <ol>
 <li>Registrar perfil y habilidades.</li>
 <li>Generar un CV con IA y descargarlo en cualquiera de los cuatro diseños.</li>
 <li>Adaptar el CV a una vacante pegada por la persona.</li>
 <li>Practicar un simulacro de entrevista con retroalimentación por respuesta.</li>
-<li>Registrar objetivos y checklist; observar el progreso en gráficas.</li>
+<li>Registrar objetivos y checklist; ver el progreso en gráficas.</li>
 <li>Comprobar el respaldo en la base de datos (<code>/api/db</code>).</li>
 </ol>
-<p>La aplicación funciona <b>sin conexión</b> para todo lo local mediante un <i>Service
-Worker</i>; solo las funciones de IA requieren red.</p>
+<p>Todo lo que es local sigue funcionando sin conexión gracias al <i>Service Worker</i>. La IA
+es lo único que necesita internet.</p>
 
 <h2>3. Avance de la base de datos y arquitectura</h2>
 <h3>3.1 Decisión y estado</h3>
-<p>Se integró una base de datos <b>relacional SQLite</b> usando el módulo nativo
-<code>node:sqlite</code> (sin dependencias externas). El archivo reside en
-<code>server/data/neurowork.db</code>, en el propio equipo, y está excluido del repositorio.
-<b>Estado:</b> diseñada e implementada parcialmente; queda pendiente la migración de datos
-antiguos y la sincronización multiusuario.</p>
+<p>En vez de instalar un paquete externo usé el módulo que ya trae Node 22,
+<code>node:sqlite</code>. El archivo queda en <code>server/data/neurowork.db</code>, en el
+propio equipo, y no se sube al repositorio. Un detalle: el módulo todavía imprime un
+<code>ExperimentalWarning</code> al arrancar, pero funciona sin banderas especiales. La base
+ya guarda y recupera el estado completo del prototipo. Falta la migración de datos antiguos y,
+sobre todo, la sincronización entre equipos.</p>
 <h3>3.2 Esquema (23 tablas con relaciones)</h3>
 <pre>workspace (raíz)
- ├─1:1─ profile            ├─1:N─ experiences        ├─1:N─ skills
- ├─1:1─ preferences        ├─1:N─ education          ├─1:N─ languages
- ├─1:1─ prep_plans         ├─1:N─ certifications     ├─1:N─ projects
- ├─1:1─ vacancy_analyses   ├─1:N─ cv_documents ─N:1─ cv_templates
- ├─1:N─ checklist_items    ├─1:N─ goals              ├─1:N─ activity_log
- ├─1:N─ snapshots          ├─1:N─ prepared_answers   ├─1:N─ professional_links
- └─1:N─ meetings ─1:N─ meeting_steps
- └─1:N─ interview_sessions ─1:N─ interview_questions</pre>
-<p>Cada tabla tiene clave primaria; las tablas hijas referencian <code>workspace(id)</code>
-con <code>ON DELETE CASCADE</code>. El DDL completo está en <code>server/db.js</code>.</p>
+  ├─1:1─ profile            ├─1:N─ experiences        ├─1:N─ skills
+  ├─1:1─ preferences        ├─1:N─ education          ├─1:N─ languages
+  ├─1:1─ prep_plans         ├─1:N─ certifications     ├─1:N─ projects
+  ├─1:1─ vacancy_analyses   ├─1:N─ cv_documents ─N:1─ cv_templates
+  ├─1:N─ checklist_items    ├─1:N─ goals              ├─1:N─ activity_log
+  ├─1:N─ snapshots          ├─1:N─ prepared_answers   ├─1:N─ professional_links
+  └─1:N─ meetings ─1:N─ meeting_steps
+  └─1:N─ interview_sessions ─1:N─ interview_questions</pre>
+<p>Cada tabla tiene clave primaria y las tablas hijas apuntan a <code>workspace(id)</code> con
+<code>ON DELETE CASCADE</code>. El DDL completo está en <code>server/db.js</code> (constante
+<code>SCHEMA_SQL</code>).</p>
 <h3>3.3 Conexión con la aplicación</h3>
 <table>
 <thead><tr><th>Método</th><th>Endpoint</th><th>Función</th></tr></thead>
@@ -134,13 +136,22 @@ con <code>ON DELETE CASCADE</code>. El DDL completo está en <code>server/db.js<
 <tr><td>GET</td><td>/api/db</td><td>Motor, ruta y conteo de filas por tabla</td></tr>
 </tbody>
 </table>
-<p>La persistencia es doble y transparente: <b>localStorage siempre</b> y, si el servidor
-está activo, <b>respaldo en SQLite</b>. Si no hay servidor, la app sigue funcionando igual.
-La clave de API nunca viaja al navegador: se inyecta en el servidor desde <code>server/.env</code>.</p>
+<p>El guardado es doble: <code>localStorage</code> siempre y, si el servidor está levantado,
+también SQLite. Si no hay servidor, la aplicación sigue funcionando igual. Al arrancar solo se
+recupera del servidor cuando no hay datos locales, para no sobrescribir lo que la persona ya
+venía usando.</p>
+<h3>3.4 Arquitectura general</h3>
+<pre>Navegador                           Servidor Node                Google
+─────────                           ─────────────                ──────
+app.js (estado, UI)  ──PUT/GET──►  /api/state ──► server/db.js ──► SQLite
+ai.js                ──POST────►   /api/gemini ──x-goog-api-key──► Gemini API
+sw.js (offline)                    estáticos</pre>
+<p>La llave de Gemini no viaja al navegador. Se lee en el servidor desde
+<code>server/.env</code> y de ahí se manda a la API.</p>
 
 <h2>4. Evidencias del avance</h2>
-<p>Las siguientes capturas corresponden al prototipo en ejecución con <b>datos de
-ejemplo</b>, tomadas automáticamente con un navegador en modo sin interfaz.</p>
+<p>Las capturas se tomaron con datos de ejemplo, no con información real de nadie. Se
+obtuvieron con un navegador en modo sin interfaz y están numeradas del 1 al 15.</p>
 
 <figure><img src="figs/01-panel.png" alt="Panel">
 <div class="cap"><b>Fig. 1.</b> Panel principal: resumen del progreso del día (perfil,
@@ -186,11 +197,14 @@ vacante, selector de cuatro diseños, vista previa y descarga.</div></figure>
 <figure><img src="figs/15-cv-minimalista.png" alt="CV Minimalista">
 <div class="cap"><b>Fig. 15.</b> Diseño «Minimalista»: limpio y con amplio espacio en blanco.</div></figure>
 
-<p class="note"><b>Comandos de verificación reproducibles:</b>
-<code>npm test</code> (41 pruebas) · <code>node tools/db-info.js</code> (23 tablas y conteo de
-filas) · <code>curl http://127.0.0.1:8787/api/db</code>.</p>
+<p class="note">Para repetir la verificación: <code>npm test</code> (41 pruebas),
+<code>node tools/db-info.js</code> (23 tablas y conteo de filas) y
+<code>curl http://127.0.0.1:8787/api/db</code>. El video de demostración aún no está grabado;
+el guion ya está escrito.</p>
 
 <h2>5. Comparación con el cronograma inicial</h2>
+<p>Mi cronograma original contemplaba 20 actividades entre agosto y diciembre de 2026. En la
+tabla pongo a la par lo que estaba previsto y lo que hay hoy.</p>
 <table>
 <thead><tr><th>#</th><th>Actividad del cronograma</th><th>Periodo</th><th>Planeado</th><th>Entregado (Avance 2)</th><th>Evidencia</th></tr></thead>
 <tbody>
@@ -216,48 +230,56 @@ filas) · <code>curl http://127.0.0.1:8787/api/db</code>.</p>
 <tr><td>20</td><td>Presentación y entrega del proyecto</td><td>Dic</td><td>Pendiente</td><td>Pendiente (2 dic)</td><td>—</td></tr>
 </tbody>
 </table>
-<p><b>Avance global: ~75&nbsp;%</b>, según el cronograma de seguimiento del anteproyecto. A la fecha, dos actividades planeadas para noviembre (<b>minería de datos</b> y <b>pruebas funcionales</b>) ya están adelantadas, por lo que el avance técnico es igual o ligeramente superior. Lo que resta es la <b>prueba de usabilidad con personas</b> y la <b>presentación final</b>.</p>
+<p>El documento de seguimiento marca un avance global de ~75&nbsp;%. Hay dos actividades que
+se adelantaron: la minería de datos y las pruebas funcionales, que ya están implementadas
+aunque en el cronograma aparecieran en noviembre como pendientes. Lo que sigue pendiente de
+verdad es la prueba con personas y la entrega final del 2 de diciembre.</p>
 
 <h2>6. Pruebas preliminares y validaciones</h2>
 <h3>6.1 Pruebas automáticas</h3>
-<p>Resultado: <b>41 pruebas, 41 correctas, 0 fallos</b>.</p>
+<p>Ejecuto <code>npm test</code> (que llama a <code>node --test</code>). Resultado: 41 pruebas,
+41 correctas, ningún fallo.</p>
 <table>
 <thead><tr><th>Archivo</th><th>Casos</th><th>Cubre</th></tr></thead>
 <tbody>
 <tr><td>tests/analytics.test.js</td><td>16</td><td>Minería de datos y gráficas</td></tr>
 <tr><td>tests/cv-doc.test.js</td><td>7</td><td>Generación de documentos de CV</td></tr>
 <tr><td>tests/db.test.js</td><td>7</td><td>Base de datos (ida y vuelta, cascada)</td></tr>
-<tr><td>tests/api.test.js</td><td>7</td><td>API HTTP + base de datos (integración)</td></tr>
+<tr><td>tests/api.test.js</td><td>7</td><td>API HTTP + base de datos (integración real)</td></tr>
 <tr><td>tests/server.test.js</td><td>4</td><td>Seguridad y utilidades del servidor</td></tr>
 </tbody>
 </table>
 <h3>6.2 Verificación manual</h3>
+<p>Además de las pruebas automáticas pasé <code>node --check</code> a <code>app.js</code>,
+<code>ai.js</code>, <code>sw.js</code> y a los archivos de <code>server/</code>. También comprobé
+que <code>/api/health</code> responda con <code>keyConfigured: true</code> y probé en vivo
+<code>PUT</code>, <code>GET</code> y <code>DELETE</code> en <code>/api/state</code>, además de
+<code>/api/db</code> (23 tablas). La lista completa está en <code>docs/09-pruebas.md</code>.</p>
+<h3>6.3 Correcciones aplicadas durante el desarrollo</h3>
+<p>Fueron saliendo detalles concretos mientras probaba:</p>
 <ul>
-<li>Verificación sintáctica con <code>node --check</code> en <code>app.js</code>, <code>ai.js</code>, <code>sw.js</code> y <code>server/*.js</code>.</li>
-<li><code>/api/health</code> operativo con <code>keyConfigured: true</code>.</li>
-<li>Comprobación en vivo de <code>PUT/GET/DELETE /api/state</code> y <code>GET /api/db</code> (23 tablas).</li>
-<li>Lista de comprobación manual en <code>docs/09-pruebas.md</code>.</li>
-</ul>
-<h3>6.3 Correcciones aplicadas</h3>
-<ul>
-<li><b>IA:</b> error <code>Failed to fetch</code> al abrir la app como archivo; se resolvió sirviendo por HTTP con un mensaje orientador.</li>
-<li><b>Caché PWA:</b> se incrementó la versión del Service Worker para invalidar la caché anterior.</li>
-<li><b>CV:</b> se rediseñó el generador (cuatro plantillas, fechas alineadas, contacto sin duplicados).</li>
-<li><b>Codificación:</b> UTF-8 garantizado en los documentos <code>.doc</code> (prefijo BOM).</li>
+<li>Al abrir la aplicación como archivo (<code>file://</code>), la IA devolvía
+<code>Failed to fetch</code>. Lo resolví sirviendo la app por HTTP y dejando un mensaje que
+explica al usuario qué pasó.</li>
+<li>La caché del <i>Service Worker</i> se quedaba vieja entre pruebas; subí la versión a
+<code>neurowork-v3</code>.</li>
+<li>El generador de CV se rehízo para incluir las cuatro plantillas, alinear las fechas a la
+derecha y no repetir los datos de contacto.</li>
+<li>Los documentos <code>.doc</code> salían con caracteres mal en Windows; se agregó el prefijo
+BOM para garantizar UTF-8.</li>
 </ul>
 <h3>6.4 Retroalimentación</h3>
-<p><b>Aún no se ha realizado validación con usuarios finales.</b> No se reportan opiniones ni
-resultados que no se hayan recogido formalmente. La prueba piloto con 2–3 personas
-neurodivergentes está planificada para la fase final.</p>
+<p>No tengo resultados de usuarios todavía, así que no voy a inventarlos. La prueba piloto con
+2–3 personas neurodivergentes está planeada para la fase final.</p>
 
 <h2>7. Documentación técnica</h2>
-<ul>
-<li><b>Diagrama de arquitectura y flujo:</b> Arquitectura del sistema (<code>docs/03-arquitectura.md</code>) y Base de datos (<code>docs/13-base-de-datos.md</code>).</li>
-<li><b>Especificación de módulos:</b> Módulos funcionales (<code>docs/04-modulos-funcionales.md</code>). <b>Flujos de IA:</b> Flujos de IA (<code>docs/05-flujos-de-ia.md</code>).</li>
-<li><b>Minería de datos:</b> Minería de datos (<code>docs/06-mineria-de-datos.md</code>). <b>Seguridad:</b> Seguridad (<code>docs/07-seguridad.md</code>).</li>
-<li><b>Base de datos:</b> Base de datos (<code>docs/13-base-de-datos.md</code>): ER, tablas, endpoints y mapeo.</li>
-<li><b>Manual de usuario inicial:</b> Manual de usuario (<code>docs/14-manual-usuario.md</code>). <b>Plan de cierre:</b> Plan de fase final (<code>docs/15-plan-fase-final.md</code>).</li>
-</ul>
+<p>En <code>docs/</code> dejé la arquitectura y el flujo del sistema (<code>docs/03-arquitectura.md</code>
+y <code>docs/13-base-de-datos.md</code>), la especificación de los módulos
+(<code>docs/04-modulos-funcionales.md</code>), los flujos de IA (<code>docs/05-flujos-de-ia.md</code>),
+la minería de datos (<code>docs/06-mineria-de-datos.md</code>), seguridad
+(<code>docs/07-seguridad.md</code>) y pruebas (<code>docs/09-pruebas.md</code>). El manual de
+usuario inicial está en <code>docs/14-manual-usuario.md</code> y el plan de cierre en
+<code>docs/15-plan-fase-final.md</code>.</p>
 
 <h2>8. Plan de trabajo para la fase final</h2>
 <table>
@@ -273,10 +295,11 @@ neurodivergentes está planificada para la fase final.</p>
 <tr><td>8</td><td>Presentación y demo</td><td>Diapositivas + video</td><td>2 días</td></tr>
 </tbody>
 </table>
-<p><b>Recursos:</b> desarrollo individual, asesoría del profesor y usuarios voluntarios.
-<b>Tiempo total estimado:</b> aproximadamente 4 semanas. <b>Fecha de entrega final:</b> 2 de diciembre de 2026. <b>Entregables planeados:</b>
-prototipo completo, base de datos con migración, suite de pruebas en verde, memoria técnica,
-manual de usuario y evidencias (repositorio, capturas, video).</p>
+<p>Los recursos son el desarrollo individual, la asesoría del profesor y personas voluntarias
+para las pruebas. Calculo unas 4 semanas. La entrega final del proyecto está fijada para el 2
+de diciembre de 2026. Al cerrar entrego el prototipo completo, la base de datos con su
+migración, las pruebas en verde, la memoria técnica, el manual de usuario y las evidencias
+(repositorio, capturas y video).</p>
 
 </body>
 </html>
