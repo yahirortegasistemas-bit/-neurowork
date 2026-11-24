@@ -19,6 +19,7 @@
   ul, ol { margin: 1mm 0 2.5mm 5mm; padding: 0; }
   li { margin: 0 0 1mm; text-align: justify; }
   table { border-collapse: collapse; width: 100%; font-size: 8.7pt; margin: 2mm 0 3mm; }
+  caption { caption-side: top; text-align: left; font-size: 8.7pt; margin-bottom: 1mm; }
   th, td { padding: 1mm 1.5mm; text-align: left; vertical-align: top; }
   thead th { border-top: 1pt solid #000; border-bottom: 0.6pt solid #000; font-weight: bold; }
   tbody td { border: none; }
@@ -45,12 +46,12 @@
 <p class="repo">Avance 2 · Repositorio: https://github.com/yahirortegasistemas-bit/-neurowork</p>
 
 <div class="abstract">
-<b>Resumen.</b> En este avance presento en qué quedó NeuroWork. Lo que en el anteproyecto era
-una propuesta ya es una aplicación web que se puede abrir, usar e instalar como PWA. Tiene
-once módulos operativos, un generador de currículums con IA, gráficas de progreso y una base
-de datos SQLite que guarda el estado del prototipo. Para comprobar que todo funcionara escribí
-41 pruebas automáticas y las 41 pasan. Lo que todavía no hice es probar la aplicación con
-personas; eso quedó para la fase final. El avance global es de aproximadamente 75&nbsp;%.
+<b>Resumen.</b> En este avance cuento cómo quedó NeuroWork hasta hoy. Al principio era solo
+el anteproyecto; ahora ya es una PWA que arranca con Node y se usa desde el navegador. Le metí
+los once módulos, el generador de CV con IA, las gráficas de progreso y una base SQLite que
+guarda lo que se hace en la aplicación. El código tiene 41 pruebas automáticas y todas pasan.
+Lo que todavía no pude medir es cómo reaccionan las personas al usarla; eso quedó para el
+cierre. El cronograma del anteproyecto marca un avance de 75&nbsp;%.
 <br><br>
 <b>Palabras clave:</b> neurodivergencia · búsqueda de empleo · inteligencia artificial
 generativa · minería de datos · SQLite · accesibilidad.
@@ -59,60 +60,52 @@ generativa · minería de datos · SQLite · accesibilidad.
 <hr>
 
 <h2>1. Desarrollo funcional parcial</h2>
-<p>Esta entrega ya no es solo un diseño. Los once módulos están en la interfaz y se puede
-navegar entre ellos.</p>
-<table>
-<thead><tr><th>Módulo</th><th>Estado</th><th>Función principal</th></tr></thead>
-<tbody>
-<tr><td>Panel</td><td>Funcional</td><td>Resumen del día: perfil, checklist, objetivos y dificultad</td></tr>
-<tr><td>Progreso</td><td>Funcional</td><td>Minería de datos y gráficas de avance</td></tr>
-<tr><td>Perfil</td><td>Funcional</td><td>Datos de contacto, experiencia y formación</td></tr>
-<tr><td>Habilidades</td><td>Funcional</td><td>Registro con categoría y nivel de confianza (1–5)</td></tr>
-<tr><td>CV</td><td>Funcional</td><td>Generación/adaptación con IA y cuatro plantillas descargables</td></tr>
-<tr><td>Entrevistas</td><td>Funcional</td><td>Cuatro pestañas: vacante, simulador, preparación y respuestas</td></tr>
-<tr><td>Reuniones</td><td>Funcional</td><td>Instrucciones convertidas en pasos + redacción asistida</td></tr>
-<tr><td>Checklist</td><td>Funcional</td><td>Tareas con repetición diaria</td></tr>
-<tr><td>Objetivos</td><td>Funcional</td><td>Metas con porcentaje de avance</td></tr>
-<tr><td>Preferencias</td><td>Funcional</td><td>Modalidad, horario y ajustes razonables</td></tr>
-<tr><td>Privacidad</td><td>Funcional</td><td>Transparencia sobre el manejo de datos</td></tr>
-</tbody>
-</table>
-<p>El módulo que más trabajo me tomó fue el de CV. Toma los datos del perfil, genera un
-borrador con IA, permite adaptarlo a una vacante pegada por la persona y exporta un archivo
-<code>.doc</code>. Por ahora la exportación es <code>.doc</code>, no PDF; el PDF quedó anotado
-para la fase final. Hay cuatro plantillas (<i>Moderno</i>, <i>Ejecutivo</i>, <i>Clásico</i> y
-<i>Minimalista</i>) y se puede ver el resultado antes de descargarlo. Las fechas salen
-alineadas a la derecha.</p>
-<p>Sobre el inicio de sesión: no hay, y no fue un olvido. Como la aplicación guarda datos
-personales, poner un <i>login</i> significaría tener un servidor de cuentas y almacenar esa
-información fuera del equipo. Preferí que todo se quede en la misma máquina. Si más adelante
-se necesita que varias personas usen el sistema, la decisión se puede revisar.</p>
+<p>Ya no estamos en el nivel de un diseño en papel. Los once módulos están metidos en la
+interfaz y se puede pasar de uno a otro sin problema. En el Panel se junta el resumen del día;
+Progreso muestra las gráficas que se calculan con los datos que la propia app guarda; Perfil y
+Habilidades son los que alimentan el CV. En Entrevistas hay cuatro pestañas (vacante,
+simulador, preparación y respuestas), Reuniones convierte unas instrucciones en pasos, y
+Checklist y Objetivos sirven para organizar la semana. Preferencias guarda modalidad y
+horario, y Privacidad explica qué información se queda guardada.</p>
+<p>El módulo que más trabajo me costó fue el de CV. Le pedía a la IA un borrador a partir del
+perfil, después lo adaptaba pegando el texto de una vacante y al final lo bajaba como
+<code>.doc</code>. Me quedé con <code>.doc</code> y no con PDF porque así la persona puede
+seguir editando el archivo; el PDF lo dejé anotado para la fase final. Las cuatro plantillas
+son <i>Moderno</i>, <i>Ejecutivo</i>, <i>Clásico</i> y <i>Minimalista</i>. La vista previa la
+puse porque sin ella uno se descarga el documento y hasta entonces se da cuenta de que las
+fechas quedaron mal; ahora salen alineadas a la derecha.</p>
+<p>No puse inicio de sesión. No se me pasó por alto: como aquí se guardan datos personales,
+tener cuentas obligaría a mandar esa información a un servidor, y yo quise que se quedara en
+la máquina de quien usa la app. Si más adelante el proyecto se vuelve multiusuario, habrá que
+revisar esa decisión.</p>
 
 <h2>2. Prototipo funcional / versión de prueba</h2>
-<p>Para ejecutarlo necesito Node.js 22 o superior y un navegador moderno. Arranco el servidor
-con <code>node server/server.js</code> y abro <code>http://127.0.0.1:8787</code>. La dirección
-importa: si abro el <code>index.html</code> como archivo (<code>file://</code>), la llamada a
-la IA falla y las funciones PWA tampoco responden bien.</p>
-<p>Una demostración corta sigue este orden:</p>
+<p>Necesito Node.js 22 o superior y un navegador cualquiera reciente. Arranco con
+<code>node server/server.js</code> y abro <code>http://127.0.0.1:8787</code>. La dirección no
+es un detalle menor: al principio abrí el <code>index.html</code> directo y la IA me devolvía
+<code>Failed to fetch</code>. También me pasó que el navegador seguía mostrando la versión
+vieja hasta que le di Ctrl+Shift+R.</p>
+<p>Para una demostración corta hago esto:</p>
 <ol>
-<li>Registrar perfil y habilidades.</li>
-<li>Generar un CV con IA y descargarlo en cualquiera de los cuatro diseños.</li>
-<li>Adaptar el CV a una vacante pegada por la persona.</li>
-<li>Practicar un simulacro de entrevista con retroalimentación por respuesta.</li>
-<li>Registrar objetivos y checklist; ver el progreso en gráficas.</li>
-<li>Comprobar el respaldo en la base de datos (<code>/api/db</code>).</li>
+<li>Llenar perfil y habilidades.</li>
+<li>Generar el CV con IA y bajarlo en uno de los cuatro diseños.</li>
+<li>Pegar una vacante y adaptar el CV a esa oferta.</li>
+<li>Hacer un simulacro de entrevista y ver la retroalimentación.</li>
+<li>Meter objetivos y tareas del checklist, y mirar las gráficas.</li>
+<li>Entrar a <code>/api/db</code> para ver que el respaldo sí se guardó.</li>
 </ol>
-<p>Todo lo que es local sigue funcionando sin conexión gracias al <i>Service Worker</i>. La IA
-es lo único que necesita internet.</p>
+<p>Lo que es local funciona aunque no haya internet, gracias al <i>Service Worker</i>. La IA es
+lo único que necesita red.</p>
 
 <h2>3. Avance de la base de datos y arquitectura</h2>
-<h3>3.1 Decisión y estado</h3>
-<p>En vez de instalar un paquete externo usé el módulo que ya trae Node 22,
-<code>node:sqlite</code>. El archivo queda en <code>server/data/neurowork.db</code>, en el
-propio equipo, y no se sube al repositorio. Un detalle: el módulo todavía imprime un
-<code>ExperimentalWarning</code> al arrancar, pero funciona sin banderas especiales. La base
-ya guarda y recupera el estado completo del prototipo. Falta la migración de datos antiguos y,
-sobre todo, la sincronización entre equipos.</p>
+<h3>3.1 Cómo quedó la base</h3>
+<p>Me quedé con SQLite usando el módulo que ya trae Node 22, <code>node:sqlite</code>, para no
+tener que instalar nada extra. El archivo se llama <code>neurowork.db</code> y vive en
+<code>server/data/</code>; lo puse en el <code>.gitignore</code> para que no se me fuera a subir
+junto con el código. El módulo todavía suelta un <code>ExperimentalWarning</code> al arrancar,
+pero en esta versión funciona sin banderas especiales. La base ya guarda y recupera el estado
+completo del prototipo. Lo que falta es la migración de datos viejos y, sobre todo, la
+sincronización entre equipos.</p>
 <h3>3.2 Esquema (23 tablas con relaciones)</h3>
 <pre>workspace (raíz)
   ├─1:1─ profile            ├─1:N─ experiences        ├─1:N─ skills
@@ -123,183 +116,166 @@ sobre todo, la sincronización entre equipos.</p>
   ├─1:N─ snapshots          ├─1:N─ prepared_answers   ├─1:N─ professional_links
   └─1:N─ meetings ─1:N─ meeting_steps
   └─1:N─ interview_sessions ─1:N─ interview_questions</pre>
-<p>Cada tabla tiene clave primaria y las tablas hijas apuntan a <code>workspace(id)</code> con
-<code>ON DELETE CASCADE</code>. El DDL completo está en <code>server/db.js</code> (constante
-<code>SCHEMA_SQL</code>).</p>
-<h3>3.3 Conexión con la aplicación</h3>
-<table>
-<thead><tr><th>Método</th><th>Endpoint</th><th>Función</th></tr></thead>
-<tbody>
-<tr><td>PUT</td><td>/api/state</td><td>Guarda el estado (llamado por <code>saveState()</code>)</td></tr>
-<tr><td>GET</td><td>/api/state</td><td>Recupera el estado al arrancar si no había datos locales</td></tr>
-<tr><td>DELETE</td><td>/api/state</td><td>Borra el respaldo («Reiniciar datos»)</td></tr>
-<tr><td>GET</td><td>/api/db</td><td>Motor, ruta y conteo de filas por tabla</td></tr>
-</tbody>
-</table>
-<p>El guardado es doble: <code>localStorage</code> siempre y, si el servidor está levantado,
-también SQLite. Si no hay servidor, la aplicación sigue funcionando igual. Al arrancar solo se
-recupera del servidor cuando no hay datos locales, para no sobrescribir lo que la persona ya
-venía usando.</p>
-<h3>3.4 Arquitectura general</h3>
-<pre>Navegador                           Servidor Node                Google
-─────────                           ─────────────                ──────
-app.js (estado, UI)  ──PUT/GET──►  /api/state ──► server/db.js ──► SQLite
-ai.js                ──POST────►   /api/gemini ──x-goog-api-key──► Gemini API
-sw.js (offline)                    estáticos</pre>
-<p>La llave de Gemini no viaja al navegador. Se lee en el servidor desde
-<code>server/.env</code> y de ahí se manda a la API.</p>
+<p>Cada tabla tiene su clave primaria y las hijas apuntan a <code>workspace(id)</code> con
+<code>ON DELETE CASCADE</code>, para que al borrar un espacio no queden datos sueltos. El DDL
+está en <code>server/db.js</code>, en la constante <code>SCHEMA_SQL</code>.</p>
+<h3>3.3 Cómo se conecta con la app</h3>
+<p>La app llama a cuatro rutas nomás: <code>PUT /api/state</code> para guardar,
+<code>GET /api/state</code> para recuperar al arrancar, <code>DELETE /api/state</code> cuando
+se reinician los datos y <code>GET /api/db</code> para ver el motor y cuántas filas hay en cada
+tabla. El guardado es doble: <code>localStorage</code> siempre y, si el servidor está
+levantado, también SQLite. Si no hay servidor, la app sigue funcionando igual. Al arrancar
+solo recupera del servidor cuando no hay nada en local, para no sobrescribir lo que la persona
+ya venía usando.</p>
+<p>La llave de Gemini se lee en el servidor desde <code>server/.env</code>. Al navegador no
+llega; ese fue el motivo principal para meter un proxy en vez de llamar a la API directo desde
+<code>ai.js</code>.</p>
 
 <h2>4. Evidencias del avance</h2>
-<p>Las capturas se tomaron con datos de ejemplo, no con información real de nadie. Se
-obtuvieron con un navegador en modo sin interfaz y están numeradas del 1 al 15.</p>
+<p>Las capturas las tomé con un perfil de ejemplo (María López) para no meter datos reales de
+nadie. Salieron de un navegador en modo sin interfaz y están numeradas del 1 al 15.</p>
 
 <figure><img src="figs/01-panel.png" alt="Panel">
-<div class="cap"><b>Fig. 1.</b> Panel principal: resumen del progreso del día (perfil,
-habilidades, checklist, objetivos), actividad reciente y patrones de dificultad.</div></figure>
+<div class="cap"><b>Fig. 1.</b> Panel principal: resumen del día, actividad reciente y patrones de dificultad.</div></figure>
 
 <figure><img src="figs/02-progreso.png" alt="Progreso">
-<div class="cap"><b>Fig. 2.</b> Módulo de minería de datos: actividad semanal, evolución
-del perfil y perfil de habilidades por categoría, calculados a partir de los datos guardados
-(no se inventan cifras).</div></figure>
+<div class="cap"><b>Fig. 2.</b> Módulo de Progreso. Las gráficas salen de los datos guardados, no son cifras inventadas.</div></figure>
 
 <div class="two">
-<figure><img src="figs/03-perfil.png" alt="Perfil"><div class="cap"><b>Fig. 3.</b> Perfil profesional: datos de contacto, experiencia y formación; base del CV y de las entrevistas.</div></figure>
-<figure><img src="figs/04-habilidades.png" alt="Habilidades"><div class="cap"><b>Fig. 4.</b> Registro de habilidades con categoría y nivel de confianza (1–5).</div></figure>
+<figure><img src="figs/03-perfil.png" alt="Perfil"><div class="cap"><b>Fig. 3.</b> Perfil profesional: contacto, experiencia y formación. Es lo que después se usa para el CV.</div></figure>
+<figure><img src="figs/04-habilidades.png" alt="Habilidades"><div class="cap"><b>Fig. 4.</b> Habilidades registradas por categoría con nivel del 1 al 5.</div></figure>
 </div>
 
 <figure><img src="figs/05-cv.png" alt="CV">
-<div class="cap"><b>Fig. 5.</b> Módulo de CV: generación asistida por IA, adaptación a una
-vacante, selector de cuatro diseños, vista previa y descarga.</div></figure>
+<div class="cap"><b>Fig. 5.</b> El módulo de CV con la adaptación a vacante y el selector de plantillas.</div></figure>
 
 <div class="two">
-<figure><img src="figs/06-entrevistas.png" alt="Entrevistas"><div class="cap"><b>Fig. 6.</b> Entrevistas: cuatro pestañas (entender la vacante, simulador, preparación y preparar respuestas).</div></figure>
-<figure><img src="figs/07-reuniones.png" alt="Reuniones"><div class="cap"><b>Fig. 7.</b> Reuniones: las instrucciones se convierten en una lista de pasos claros.</div></figure>
+<figure><img src="figs/06-entrevistas.png" alt="Entrevistas"><div class="cap"><b>Fig. 6.</b> Entrevistas: las cuatro pestañas que quedaron.</div></figure>
+<figure><img src="figs/07-reuniones.png" alt="Reuniones"><div class="cap"><b>Fig. 7.</b> Reuniones: una instrucción convertida en pasos.</div></figure>
 </div>
 
 <div class="two">
-<figure><img src="figs/08-checklist.png" alt="Checklist"><div class="cap"><b>Fig. 8.</b> Checklist de tareas, con opción de repetición diaria.</div></figure>
-<figure><img src="figs/09-objetivos.png" alt="Objetivos"><div class="cap"><b>Fig. 9.</b> Objetivos con fecha y porcentaje de avance.</div></figure>
+<figure><img src="figs/08-checklist.png" alt="Checklist"><div class="cap"><b>Fig. 8.</b> Checklist, con la opción de repetir diario.</div></figure>
+<figure><img src="figs/09-objetivos.png" alt="Objetivos"><div class="cap"><b>Fig. 9.</b> Objetivos con fecha y porcentaje.</div></figure>
 </div>
 
 <div class="two">
-<figure><img src="figs/10-preferencias.png" alt="Preferencias"><div class="cap"><b>Fig. 10.</b> Preferencias de trabajo: modalidad, horario, comunicación y ajustes razonables.</div></figure>
-<figure><img src="figs/11-privacidad.png" alt="Privacidad"><div class="cap"><b>Fig. 11.</b> Privacidad: transparencia sobre los datos y estado del respaldo en la base de datos local.</div></figure>
+<figure><img src="figs/10-preferencias.png" alt="Preferencias"><div class="cap"><b>Fig. 10.</b> Preferencias de trabajo: modalidad, horario y ajustes.</div></figure>
+<figure><img src="figs/11-privacidad.png" alt="Privacidad"><div class="cap"><b>Fig. 11.</b> Privacidad y estado del respaldo local.</div></figure>
 </div>
 
 <figure><img src="figs/12-cv-moderno.png" alt="CV Moderno">
-<div class="cap"><b>Fig. 12.</b> Diseño de CV «Moderno»: dos columnas con barra lateral.</div></figure>
+<div class="cap"><b>Fig. 12.</b> Plantilla Moderno, con barra lateral.</div></figure>
 
 <div class="two">
-<figure><img src="figs/13-cv-ejecutivo.png" alt="CV Ejecutivo"><div class="cap"><b>Fig. 13.</b> Diseño «Ejecutivo»: una columna con cabecera destacada.</div></figure>
-<figure><img src="figs/14-cv-clasico.png" alt="CV Clásico"><div class="cap"><b>Fig. 14.</b> Diseño «Clásico»: serif y centrado.</div></figure>
+<figure><img src="figs/13-cv-ejecutivo.png" alt="CV Ejecutivo"><div class="cap"><b>Fig. 13.</b> Plantilla Ejecutivo.</div></figure>
+<figure><img src="figs/14-cv-clasico.png" alt="CV Clásico"><div class="cap"><b>Fig. 14.</b> Plantilla Clásico.</div></figure>
 </div>
 
 <figure><img src="figs/15-cv-minimalista.png" alt="CV Minimalista">
-<div class="cap"><b>Fig. 15.</b> Diseño «Minimalista»: limpio y con amplio espacio en blanco.</div></figure>
+<div class="cap"><b>Fig. 15.</b> Plantilla Minimalista.</div></figure>
 
-<p class="note">Para repetir la verificación: <code>npm test</code> (41 pruebas),
-<code>node tools/db-info.js</code> (23 tablas y conteo de filas) y
-<code>curl http://127.0.0.1:8787/api/db</code>. El video de demostración aún no está grabado;
-el guion ya está escrito.</p>
+<p class="note">El video de demostración todavía no lo grabé; el guion ya está escrito. Para
+repetir la verificación: <code>npm test</code>, <code>node tools/db-info.js</code> y
+<code>curl http://127.0.0.1:8787/api/db</code>.</p>
 
 <h2>5. Comparación con el cronograma inicial</h2>
-<p>Mi cronograma original contemplaba 20 actividades entre agosto y diciembre de 2026. En la
-tabla pongo a la par lo que estaba previsto y lo que hay hoy.</p>
+<p>El cronograma del anteproyecto traía 20 actividades de agosto a diciembre. Le agregué una
+columna con lo que al día de hoy sí está entregado y quedó así:</p>
 <table>
-<thead><tr><th>#</th><th>Actividad del cronograma</th><th>Periodo</th><th>Planeado</th><th>Entregado (Avance 2)</th><th>Evidencia</th></tr></thead>
+<caption>Tabla 1. Lo planeado en el cronograma frente a lo entregado en este avance.</caption>
+<thead><tr><th>#</th><th>Actividad</th><th>Periodo</th><th>Planeado</th><th>Entregado</th><th>Evidencia</th></tr></thead>
 <tbody>
-<tr><td>1</td><td>Investigación y análisis del problema</td><td>Ago</td><td>Completado</td><td>Completado</td><td>Descripción general (docs/01)</td></tr>
+<tr><td>1</td><td>Investigación y análisis del problema</td><td>Ago</td><td>Completado</td><td>Completado</td><td>docs/01</td></tr>
 <tr><td>2</td><td>Investigación del estado del arte</td><td>Ago</td><td>Completado</td><td>Completado</td><td>Anteproyecto, docs/01</td></tr>
-<tr><td>3</td><td>Definición de requerimientos</td><td>Ago–Sep</td><td>Completado</td><td>Completado</td><td>Módulos funcionales (docs/04)</td></tr>
-<tr><td>4</td><td>Diseño de arquitectura del sistema</td><td>Sep</td><td>Completado</td><td>Completado</td><td>Arquitectura (docs/03)</td></tr>
-<tr><td>5</td><td>Diseño de base de datos</td><td>Sep</td><td>Completado</td><td>Completado (23 tablas)</td><td>Base de datos (docs/13)</td></tr>
-<tr><td>6</td><td>Diseño de interfaces</td><td>Sep</td><td>Completado</td><td>Completado</td><td>Accesibilidad (docs/12), styles.css</td></tr>
+<tr><td>3</td><td>Definición de requerimientos</td><td>Ago–Sep</td><td>Completado</td><td>Completado</td><td>docs/04</td></tr>
+<tr><td>4</td><td>Diseño de arquitectura del sistema</td><td>Sep</td><td>Completado</td><td>Completado</td><td>docs/03</td></tr>
+<tr><td>5</td><td>Diseño de base de datos</td><td>Sep</td><td>Completado</td><td>Completado (23 tablas)</td><td>docs/13</td></tr>
+<tr><td>6</td><td>Diseño de interfaces</td><td>Sep</td><td>Completado</td><td>Completado</td><td>docs/12, styles.css</td></tr>
 <tr><td>7</td><td>Desarrollo del perfil profesional</td><td>Sep</td><td>Completado</td><td>Completado</td><td>app.js</td></tr>
-<tr><td>8</td><td>Desarrollo del módulo de habilidades y CV</td><td>Sep–Oct</td><td>Completado</td><td>Completado (4 plantillas)</td><td>app.js, ai.js</td></tr>
-<tr><td>9</td><td>Desarrollo del análisis de vacantes</td><td>Oct</td><td>Completado</td><td>Completado</td><td>Módulo Entrevistas</td></tr>
-<tr><td>10</td><td>Desarrollo del simulador de entrevistas</td><td>Oct</td><td>Completado</td><td>Completado</td><td>app.js</td></tr>
-<tr><td>11</td><td>Desarrollo de metas, actividades y checklist</td><td>Oct</td><td>Completado</td><td>Completado</td><td>app.js</td></tr>
-<tr><td>12</td><td>Integración de inteligencia artificial</td><td>Oct</td><td>Completado</td><td>Completado</td><td>ai.js, server/server.js</td></tr>
-<tr><td>13</td><td>Implementación del registro de datos</td><td>Oct</td><td>Completado</td><td>Completado (SQLite)</td><td>server/db.js</td></tr>
-<tr><td>14</td><td>Análisis inicial mediante minería de datos</td><td>Nov</td><td>Pendiente</td><td>Completado (adelantado)</td><td>analytics.js, Minería de datos (docs/06)</td></tr>
+<tr><td>8</td><td>Módulo de habilidades y CV</td><td>Sep–Oct</td><td>Completado</td><td>Completado (4 plantillas)</td><td>app.js, ai.js</td></tr>
+<tr><td>9</td><td>Análisis de vacantes</td><td>Oct</td><td>Completado</td><td>Completado</td><td>Entrevistas</td></tr>
+<tr><td>10</td><td>Simulador de entrevistas</td><td>Oct</td><td>Completado</td><td>Completado</td><td>app.js</td></tr>
+<tr><td>11</td><td>Metas, actividades y checklist</td><td>Oct</td><td>Completado</td><td>Completado</td><td>app.js</td></tr>
+<tr><td>12</td><td>Integración de inteligencia artificial</td><td>Oct</td><td>Completado</td><td>Completado</td><td>ai.js, server.js</td></tr>
+<tr><td>13</td><td>Registro de datos</td><td>Oct</td><td>Completado</td><td>Completado (SQLite)</td><td>server/db.js</td></tr>
+<tr><td>14</td><td>Análisis inicial mediante minería de datos</td><td>Nov</td><td>Pendiente</td><td>Completado (adelantado)</td><td>analytics.js</td></tr>
 <tr><td>15</td><td>Pruebas funcionales</td><td>Nov</td><td>Pendiente</td><td>En progreso (41 pruebas)</td><td>tests/</td></tr>
-<tr><td>16</td><td>Pruebas de usabilidad</td><td>Nov</td><td>Pendiente</td><td>Pendiente (fase final)</td><td>—</td></tr>
-<tr><td>17</td><td>Corrección de errores</td><td>Nov</td><td>Pendiente</td><td>En progreso (correcciones aplicadas)</td><td>§6.3</td></tr>
-<tr><td>18</td><td>Integración de la versión Beta</td><td>Nov</td><td>Pendiente</td><td>En progreso (PWA funcional)</td><td>sw.js</td></tr>
+<tr><td>16</td><td>Pruebas de usabilidad</td><td>Nov</td><td>Pendiente</td><td>Pendiente</td><td>—</td></tr>
+<tr><td>17</td><td>Corrección de errores</td><td>Nov</td><td>Pendiente</td><td>En progreso</td><td>§6.3</td></tr>
+<tr><td>18</td><td>Integración de la versión Beta</td><td>Nov</td><td>Pendiente</td><td>En progreso (PWA)</td><td>sw.js</td></tr>
 <tr><td>19</td><td>Documentación del proyecto</td><td>Ago–Dic</td><td>En progreso</td><td>En progreso</td><td>docs/01–15</td></tr>
-<tr><td>20</td><td>Presentación y entrega del proyecto</td><td>Dic</td><td>Pendiente</td><td>Pendiente (2 dic)</td><td>—</td></tr>
+<tr><td>20</td><td>Presentación y entrega</td><td>Dic</td><td>Pendiente</td><td>Pendiente (2 dic)</td><td>—</td></tr>
 </tbody>
 </table>
-<p>El documento de seguimiento marca un avance global de ~75&nbsp;%. Hay dos actividades que
-se adelantaron: la minería de datos y las pruebas funcionales, que ya están implementadas
-aunque en el cronograma aparecieran en noviembre como pendientes. Lo que sigue pendiente de
-verdad es la prueba con personas y la entrega final del 2 de diciembre.</p>
+<p>El propio cronograma decía 75&nbsp;%. Creo que ya va un poco más adelante porque la minería
+de datos y las pruebas funcionales, que estaban para noviembre, ya están hechas. Lo que sí
+sigue pendiente es sentar a personas a probar la app y la presentación final del 2 de
+diciembre.</p>
 
 <h2>6. Pruebas preliminares y validaciones</h2>
 <h3>6.1 Pruebas automáticas</h3>
-<p>Ejecuto <code>npm test</code> (que llama a <code>node --test</code>). Resultado: 41 pruebas,
-41 correctas, ningún fallo.</p>
+<p>Fui escribiendo las pruebas conforme iban saliendo errores. Al final quedaron 41 y las 41
+pasan con <code>npm test</code>.</p>
 <table>
-<thead><tr><th>Archivo</th><th>Casos</th><th>Cubre</th></tr></thead>
+<caption>Tabla 2. Cómo se reparten las 41 pruebas.</caption>
+<thead><tr><th>Archivo</th><th>Casos</th><th>Qué revisa</th></tr></thead>
 <tbody>
 <tr><td>tests/analytics.test.js</td><td>16</td><td>Minería de datos y gráficas</td></tr>
-<tr><td>tests/cv-doc.test.js</td><td>7</td><td>Generación de documentos de CV</td></tr>
-<tr><td>tests/db.test.js</td><td>7</td><td>Base de datos (ida y vuelta, cascada)</td></tr>
-<tr><td>tests/api.test.js</td><td>7</td><td>API HTTP + base de datos (integración real)</td></tr>
+<tr><td>tests/cv-doc.test.js</td><td>7</td><td>Documentos de CV</td></tr>
+<tr><td>tests/db.test.js</td><td>7</td><td>Ida y vuelta de la base y borrado en cascada</td></tr>
+<tr><td>tests/api.test.js</td><td>7</td><td>API HTTP contra la base real</td></tr>
 <tr><td>tests/server.test.js</td><td>4</td><td>Seguridad y utilidades del servidor</td></tr>
 </tbody>
 </table>
-<h3>6.2 Verificación manual</h3>
-<p>Además de las pruebas automáticas pasé <code>node --check</code> a <code>app.js</code>,
-<code>ai.js</code>, <code>sw.js</code> y a los archivos de <code>server/</code>. También comprobé
-que <code>/api/health</code> responda con <code>keyConfigured: true</code> y probé en vivo
-<code>PUT</code>, <code>GET</code> y <code>DELETE</code> en <code>/api/state</code>, además de
-<code>/api/db</code> (23 tablas). La lista completa está en <code>docs/09-pruebas.md</code>.</p>
-<h3>6.3 Correcciones aplicadas durante el desarrollo</h3>
-<p>Fueron saliendo detalles concretos mientras probaba:</p>
+<h3>6.2 Revisión a mano y errores que fui corrigiendo</h3>
+<p>Además de las pruebas automáticas les pasé <code>node --check</code> a los archivos de
+<code>app.js</code>, <code>ai.js</code>, <code>sw.js</code> y <code>server/</code>. También abrí
+<code>/api/health</code> y comprobé que los tres métodos de <code>/api/state</code> respondieran
+como debían. La lista completa quedó en <code>docs/09-pruebas.md</code>.</p>
+<p>Los problemas que más me hicieron perder tiempo fueron estos:</p>
 <ul>
-<li>Al abrir la aplicación como archivo (<code>file://</code>), la IA devolvía
-<code>Failed to fetch</code>. Lo resolví sirviendo la app por HTTP y dejando un mensaje que
-explica al usuario qué pasó.</li>
-<li>La caché del <i>Service Worker</i> se quedaba vieja entre pruebas; subí la versión a
-<code>neurowork-v3</code>.</li>
-<li>El generador de CV se rehízo para incluir las cuatro plantillas, alinear las fechas a la
-derecha y no repetir los datos de contacto.</li>
-<li>Los documentos <code>.doc</code> salían con caracteres mal en Windows; se agregó el prefijo
-BOM para garantizar UTF-8.</li>
+<li>El <code>Failed to fetch</code> de la IA, que era por abrir la app como archivo y no por
+HTTP. Ya está corregido y además dejé un mensaje para que se entienda el error.</li>
+<li>La caché del <i>Service Worker</i> se me quedó pegada con la versión anterior; por eso
+subí a <code>neurowork-v3</code>.</li>
+<li>El primer generador de CV repetía los datos de contacto y las fechas no cuadraban. Se
+rehízo y ya tiene las cuatro plantillas.</li>
+<li>Los <code>.doc</code> se veían mal en Windows hasta que les puse el prefijo BOM para utf-8.</li>
 </ul>
-<h3>6.4 Retroalimentación</h3>
-<p>No tengo resultados de usuarios todavía, así que no voy a inventarlos. La prueba piloto con
-2–3 personas neurodivergentes está planeada para la fase final.</p>
+<h3>6.3 Sobre la retroalimentación</h3>
+<p>Aquí no hay nada que reportar todavía. No hice pruebas con usuarios, así que no voy a poner
+opiniones que no recogí. La prueba con 2–3 personas neurodivergentes está en el plan de cierre.</p>
 
 <h2>7. Documentación técnica</h2>
-<p>En <code>docs/</code> dejé la arquitectura y el flujo del sistema (<code>docs/03-arquitectura.md</code>
-y <code>docs/13-base-de-datos.md</code>), la especificación de los módulos
-(<code>docs/04-modulos-funcionales.md</code>), los flujos de IA (<code>docs/05-flujos-de-ia.md</code>),
-la minería de datos (<code>docs/06-mineria-de-datos.md</code>), seguridad
-(<code>docs/07-seguridad.md</code>) y pruebas (<code>docs/09-pruebas.md</code>). El manual de
-usuario inicial está en <code>docs/14-manual-usuario.md</code> y el plan de cierre en
-<code>docs/15-plan-fase-final.md</code>.</p>
+<p>En <code>docs/</code> dejé los documentos que usé para armar el prototipo: arquitectura y flujo
+(<code>docs/03</code> y <code>docs/13</code>), módulos (<code>docs/04</code>), flujos de IA
+(<code>docs/05</code>), minería de datos (<code>docs/06</code>), seguridad (<code>docs/07</code>)
+y pruebas (<code>docs/09</code>). El manual de usuario está en <code>docs/14</code> y el plan de
+cierre en <code>docs/15</code>. El código y las capturas están en el repositorio que aparece al
+inicio.</p>
 
-<h2>8. Plan de trabajo para la fase final</h2>
+<h2>8. Lo que falta para la entrega final</h2>
+<p>Esto es lo que tengo anotado para cerrar el proyecto. Los días son una estimación mía, no
+los medí:</p>
 <table>
-<thead><tr><th>#</th><th>Actividad pendiente</th><th>Entregable</th><th>Tiempo estimado</th></tr></thead>
+<caption>Tabla 3. Actividades pendientes y tiempos estimados.</caption>
+<thead><tr><th>#</th><th>Actividad</th><th>Entregable</th><th>Tiempo</th></tr></thead>
 <tbody>
-<tr><td>1</td><td>Validación con usuarios neurodivergentes (2–3)</td><td>Informe de usabilidad</td><td>4–5 días</td></tr>
-<tr><td>2</td><td>Exportación del CV a PDF</td><td>Botón «Descargar PDF»</td><td>2–3 días</td></tr>
-<tr><td>3</td><td>Migración y respaldo de la base de datos</td><td>Script de migración</td><td>2 días</td></tr>
-<tr><td>4</td><td>Pruebas E2E completas en navegador</td><td>Checklist con evidencias</td><td>2 días</td></tr>
-<tr><td>5</td><td>Revisión de accesibilidad (WCAG 2.2 AA)</td><td>Informe de conformidad</td><td>2–3 días</td></tr>
-<tr><td>6</td><td>Refinamiento UI/UX según hallazgos</td><td>Ajustes documentados</td><td>3 días</td></tr>
-<tr><td>7</td><td>Documentación final y memoria</td><td>Memoria + diagramas</td><td>4–5 días</td></tr>
-<tr><td>8</td><td>Presentación y demo</td><td>Diapositivas + video</td><td>2 días</td></tr>
+<tr><td>1</td><td>Prueba con 2–3 usuarios neurodivergentes</td><td>Informe de usabilidad</td><td>4–5 días</td></tr>
+<tr><td>2</td><td>Pasar el CV a PDF</td><td>Botón de descarga</td><td>2–3 días</td></tr>
+<tr><td>3</td><td>Migración y respaldo de la base</td><td>Script de migración</td><td>2 días</td></tr>
+<tr><td>4</td><td>Pruebas E2E en navegador</td><td>Checklist con evidencias</td><td>2 días</td></tr>
+<tr><td>5</td><td>Revisión de accesibilidad WCAG 2.2 AA</td><td>Informe</td><td>2–3 días</td></tr>
+<tr><td>6</td><td>Ajustes de interfaz según lo que salga</td><td>Cambios documentados</td><td>3 días</td></tr>
+<tr><td>7</td><td>Documentación final y memoria</td><td>Memoria y diagramas</td><td>4–5 días</td></tr>
+<tr><td>8</td><td>Presentación y demo</td><td>Diapositivas y video</td><td>2 días</td></tr>
 </tbody>
 </table>
 <p>Los recursos son el desarrollo individual, la asesoría del profesor y personas voluntarias
-para las pruebas. Calculo unas 4 semanas. La entrega final del proyecto está fijada para el 2
-de diciembre de 2026. Al cerrar entrego el prototipo completo, la base de datos con su
-migración, las pruebas en verde, la memoria técnica, el manual de usuario y las evidencias
-(repositorio, capturas y video).</p>
+para las pruebas. Calculo unas 4 semanas. La entrega final está marcada para el 2 de diciembre
+de 2026; para entonces entrego el prototipo completo, la base con su migración, las pruebas en
+verde, la memoria, el manual y las evidencias (repositorio, capturas y video).</p>
 
 </body>
 </html>

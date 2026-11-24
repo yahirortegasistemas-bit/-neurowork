@@ -24,12 +24,12 @@ Instituto Tecnológico de Tijuana, Tijuana, Baja California, México\\
 \maketitle
 
 \begin{abstract}
-En este avance presento en qué quedó NeuroWork. Lo que en el anteproyecto era una propuesta
-ya es una aplicación web que se puede abrir, usar e instalar como PWA. Tiene once módulos
-operativos, un generador de currículums con IA, gráficas de progreso y una base de datos
-SQLite que guarda el estado del prototipo. Para comprobar que todo funcionara escribí 41
-pruebas automáticas y las 41 pasan. Lo que todavía no hice es probar la aplicación con
-personas; eso quedó para la fase final. El avance global es de aproximadamente 75\,\%.
+En este avance cuento cómo quedó NeuroWork hasta hoy. Al principio era solo el anteproyecto;
+ahora ya es una PWA que arranca con Node y se usa desde el navegador. Le metí los once módulos,
+el generador de CV con IA, las gráficas de progreso y una base SQLite que guarda lo que se hace
+en la aplicación. El código tiene 41 pruebas automáticas y todas pasan. Lo que todavía no pude
+medir es cómo reaccionan las personas al usarla; eso quedó para el cierre. El cronograma del
+anteproyecto marca un avance de 75\,\%.
 
 \keywords{neurodivergencia \and búsqueda de empleo \and inteligencia artificial generativa \and minería de datos \and SQLite \and accesibilidad.}
 \end{abstract}
@@ -37,52 +37,34 @@ personas; eso quedó para la fase final. El avance global es de aproximadamente 
 \noindent Repositorio: \url{https://github.com/yahirortegasistemas-bit/-neurowork}
 
 \section{Desarrollo funcional parcial}
-Esta entrega ya no es solo un diseño. Los once módulos están en la interfaz y se puede
-navegar entre ellos (Tabla~\ref{tab:modulos}).
+Ya no estamos en el nivel de un diseño en papel. Los once módulos están metidos en la interfaz
+y se puede pasar de uno a otro sin problema. En el Panel se junta el resumen del día; Progreso
+muestra las gráficas que se calculan con los datos que la propia app guarda; Perfil y
+Habilidades son los que alimentan el CV. En Entrevistas hay cuatro pestañas, Reuniones convierte
+instrucciones en pasos, Checklist y Objetivos sirven para organizar la semana. Preferencias
+guarda modalidad y horario, y Privacidad explica qué información se queda guardada.
 
-\begin{table}[htbp]
-\caption{Módulos del sistema y su estado.}
-\label{tab:modulos}
-\centering
-\small
-\begin{tabular}{lll}
-\toprule
-Módulo & Estado & Función principal\\
-\midrule
-Panel & Funcional & Resumen del día: perfil, checklist, objetivos, dificultad\\
-Progreso & Funcional & Minería de datos y gráficas de avance\\
-Perfil & Funcional & Datos de contacto, experiencia y formación\\
-Habilidades & Funcional & Registro con categoría y nivel de confianza (1--5)\\
-CV & Funcional & Generación/adaptación con IA y cuatro plantillas\\
-Entrevistas & Funcional & Vacante, simulador, preparación y respuestas\\
-Reuniones & Funcional & Instrucciones convertidas en pasos\\
-Checklist & Funcional & Tareas con repetición diaria\\
-Objetivos & Funcional & Metas con porcentaje de avance\\
-Preferencias & Funcional & Modalidad, horario y ajustes razonables\\
-Privacidad & Funcional & Transparencia sobre el manejo de datos\\
-\bottomrule
-\end{tabular}
-\end{table}
+El módulo que más trabajo me costó fue el de CV. Le pedía a la IA un borrador a partir del
+perfil, después lo adaptaba pegando el texto de una vacante y al final lo bajaba como
+\texttt{.doc}. Me quedé con \texttt{.doc} y no con PDF porque así la persona puede seguir
+editando el archivo; el PDF lo dejé anotado para la fase final. Las cuatro plantillas son
+\emph{Moderno}, \emph{Ejecutivo}, \emph{Clásico} y \emph{Minimalista}. La vista previa la puse
+porque sin ella uno se descarga el documento y hasta entonces se da cuenta de que las fechas
+quedaron mal; ahora salen alineadas a la derecha.
 
-El módulo que más trabajo me tomó fue el de CV. Toma los datos del perfil, genera un borrador
-con IA, permite adaptarlo a una vacante pegada por la persona y exporta un archivo
-\texttt{.doc}. Por ahora la exportación es \texttt{.doc}, no PDF; el PDF quedó anotado para
-la fase final. Hay cuatro plantillas (\emph{Moderno}, \emph{Ejecutivo}, \emph{Clásico} y
-\emph{Minimalista}) y se puede ver el resultado antes de descargarlo. Las fechas salen
-alineadas a la derecha.
-
-Sobre el inicio de sesión: no hay, y no fue un olvido. Como la aplicación guarda datos
-personales, poner un \emph{login} significaría tener un servidor de cuentas y almacenar esa
-información fuera del equipo. Preferí que todo se quede en la misma máquina. Si más adelante
-se necesita que varias personas usen el sistema, la decisión se puede revisar.
+No puse inicio de sesión. No se me pasó por alto: como aquí se guardan datos personales, tener
+cuentas obligaría a mandar esa información a un servidor, y yo quise que se quedara en la
+máquina de quien usa la app. Si más adelante el proyecto se vuelve multiusuario, habrá que
+revisar esa decisión.
 
 \section{Prototipo funcional / versión de prueba}
-Para ejecutarlo necesito Node.js 22 o superior y un navegador moderno. Arranco el servidor con
-\texttt{node server/server.js} y abro \texttt{http://127.0.0.1:8787}. La dirección importa: si
-abro el \texttt{index.html} como archivo (\texttt{file://}), la llamada a la IA falla y las
-funciones PWA tampoco responden bien.
+Necesito Node.js 22 o superior y un navegador cualquiera reciente. Arranco con
+\texttt{node server/server.js} y abro \texttt{http://127.0.0.1:8787}. La dirección no es un
+detalle menor: al principio abrí el \texttt{index.html} directo y la IA me devolvía
+\texttt{Failed to fetch}. También me pasó que el navegador seguía mostrando la versión vieja
+hasta que le di Ctrl+Shift+R.
 
-\noindent Una demostración corta sigue este orden:
+\noindent Para una demostración corta hago esto:
 \begin{enumerate}
 \item Registrar perfil y habilidades.
 \item Generar un CV con IA y descargarlo en cualquiera de los cuatro diseños.
@@ -96,11 +78,13 @@ es lo único que necesita internet.
 
 \section{Avance de la base de datos y arquitectura}
 \subsection{Decisión y estado}
-En vez de instalar un paquete externo usé el módulo que ya trae Node 22, \texttt{node:sqlite}.
-El archivo queda en \texttt{server/data/neurowork.db}, en el propio equipo, y no se sube al
-repositorio. Un detalle: el módulo todavía imprime un \texttt{ExperimentalWarning} al arrancar,
-pero funciona sin banderas especiales. La base ya guarda y recupera el estado completo del
-prototipo. Falta la migración de datos antiguos y, sobre todo, la sincronización entre equipos.
+Me quedé con SQLite usando el módulo que ya trae Node 22, \texttt{node:sqlite}, para no tener
+que instalar nada extra. El archivo se llama \texttt{neurowork.db} y vive en
+\texttt{server/data/}; lo puse en el \texttt{.gitignore} para que no se me fuera a subir junto
+con el código. El módulo todavía suelta un \texttt{ExperimentalWarning} al arrancar, pero en
+esta versión funciona sin banderas especiales. La base ya guarda y recupera el estado completo
+del prototipo. Lo que falta es la migración de datos viejos y, sobre todo, la sincronización
+entre equipos.
 
 \subsection{Esquema (23 tablas con relaciones)}
 \begin{verbatim}
@@ -114,37 +98,26 @@ workspace (raíz)
  |-1:N- meetings -1:N- meeting_steps
  '-1:N- interview_sessions -1:N- interview_questions
 \end{verbatim}
-Cada tabla tiene clave primaria; las tablas hijas referencian \texttt{workspace(id)} con
-\texttt{ON DELETE CASCADE}. El DDL completo está en \texttt{server/db.js}.
+Cada tabla tiene su clave primaria y las hijas apuntan a \texttt{workspace(id)} con
+\texttt{ON DELETE CASCADE}, para que al borrar un espacio no queden datos sueltos. El DDL está
+en \texttt{server/db.js}, en la constante \texttt{SCHEMA_SQL}.
 
 \subsection{Conexión con la aplicación}
+La app llama a cuatro rutas nomás: \texttt{PUT /api/state} para guardar,
+\texttt{GET /api/state} para recuperar al arrancar, \texttt{DELETE /api/state} cuando se
+reinician los datos y \texttt{GET /api/db} para ver el motor y cuántas filas hay en cada tabla.
 El guardado es doble: \texttt{localStorage} siempre y, si el servidor está levantado, también
-SQLite. Si no hay servidor, la aplicación sigue funcionando igual. Al arrancar solo se
-recupera del servidor cuando no hay datos locales, para no sobrescribir lo que la persona ya
-venía usando. La llave de Gemini no viaja al navegador; se lee en el servidor desde
-\texttt{server/.env} (Tabla~\ref{tab:api}).
+SQLite. Si no hay servidor, la app sigue funcionando igual. Al arrancar solo recupera del
+servidor cuando no hay nada en local, para no sobrescribir lo que la persona ya venía usando.
 
-\begin{table}[htbp]
-\caption{Endpoints de la API.}
-\label{tab:api}
-\centering
-\small
-\begin{tabular}{lll}
-\toprule
-Método & Endpoint & Función\\
-\midrule
-PUT & \texttt{/api/state} & Guarda el estado (llamado por \texttt{saveState()})\\
-GET & \texttt{/api/state} & Recupera el estado si no había datos locales\\
-DELETE & \texttt{/api/state} & Borra el respaldo («Reiniciar datos»)\\
-GET & \texttt{/api/db} & Motor, ruta y conteo de filas por tabla\\
-\bottomrule
-\end{tabular}
-\end{table}
+La llave de Gemini se lee en el servidor desde \texttt{server/.env}. Al navegador no llega; ese
+fue el motivo principal para meter un proxy en vez de llamar a la API directo desde
+\texttt{ai.js}.
 
 \section{Evidencias del avance}
-Las capturas se tomaron con datos de ejemplo, no con información real de nadie. Se obtuvieron
-con un navegador en modo sin interfaz y están numeradas del 1 al 15. El video de demostración
-aún no está grabado; el guion ya está escrito.
+Las capturas las tomé con un perfil de ejemplo (María López) para no meter datos reales de
+nadie. Salieron de un navegador en modo sin interfaz y están numeradas del 1 al 15. El video
+todavía no lo grabé; el guion ya está escrito.
 
 \begin{figure}[htbp]
 \centering
@@ -212,8 +185,8 @@ aún no está grabado; el guion ya está escrito.
 \end{figure}
 
 \section{Comparación con el cronograma inicial}
-Mi cronograma original contemplaba 20 actividades entre agosto y diciembre de 2026. En la
-Tabla~\ref{tab:cronograma} pongo a la par lo que estaba previsto y lo que hay hoy.
+El cronograma del anteproyecto traía 20 actividades de agosto a diciembre. Le agregué una
+columna con lo que al día de hoy sí está entregado (Tabla~\ref{tab:cronograma}).
 
 \begin{table}[htbp]
 \caption{Comparación con el cronograma inicial (planeado vs. entregado).}
@@ -248,15 +221,14 @@ Tabla~\ref{tab:cronograma} pongo a la par lo que estaba previsto y lo que hay ho
 \end{tabular}
 \end{table}
 
-El documento de seguimiento marca un avance global de $\sim$75\,\%. Hay dos actividades que
-se adelantaron: la minería de datos y las pruebas funcionales, que ya están implementadas
-aunque en el cronograma aparecieran en noviembre como pendientes. Lo que sigue pendiente de
-verdad es la prueba con personas y la entrega final del 2 de diciembre.
+El propio cronograma decía 75\,\%. Creo que ya va un poco más adelante porque la minería de
+datos y las pruebas funcionales, que estaban para noviembre, ya están hechas. Lo que sí sigue
+pendiente es sentar a personas a probar la app y la presentación final del 2 de diciembre.
 
 \section{Pruebas preliminares y validaciones}
 \subsection{Pruebas automáticas}
-Ejecuto \texttt{npm test} (que llama a \texttt{node --test}). Resultado: 41 pruebas, 41
-correctas, ningún fallo (Tabla~\ref{tab:pruebas}).
+Fui escribiendo las pruebas conforme iban saliendo errores. Al final quedaron 41 y las 41
+pasan con \texttt{npm test} (Tabla~\ref{tab:pruebas}).
 
 \begin{table}[htbp]
 \caption{Distribución de las pruebas automáticas.}
@@ -276,34 +248,33 @@ Archivo & Casos & Cubre\\
 \end{tabular}
 \end{table}
 
-\subsection{Verificación manual y correcciones}
-Además de las pruebas automáticas pasé \texttt{node --check} a \texttt{app.js}, \texttt{ai.js},
-\texttt{sw.js} y a los archivos de \texttt{server/}. También comprobé que \texttt{/api/health}
-responda con \texttt{keyConfigured: true} y probé en vivo \texttt{PUT}, \texttt{GET} y
-\texttt{DELETE} en \texttt{/api/state}, además de \texttt{GET /api/db} (23 tablas).
+\subsection{Revisión a mano y errores corregidos}
+Además de las pruebas automáticas les pasé \texttt{node --check} a los archivos de
+\texttt{app.js}, \texttt{ai.js}, \texttt{sw.js} y \texttt{server/}. También abrí
+\texttt{/api/health} y comprobé que los tres métodos de \texttt{/api/state} respondieran como
+debían. La lista completa quedó en \texttt{docs/09-pruebas.md}.
 
-Fueron saliendo detalles concretos mientras probaba: al abrir la aplicación como archivo
-(\texttt{file://}), la IA devolvía \texttt{Failed to fetch}, así que la serví por HTTP y dejé
-un mensaje que explica qué pasó. La caché del \emph{Service Worker} se quedaba vieja entre
-pruebas y subí la versión a \texttt{neurowork-v3}. El generador de CV se rehízo para incluir
-las cuatro plantillas, alinear las fechas a la derecha y no repetir los datos de contacto. Los
-documentos \texttt{.doc} salían con caracteres mal en Windows; se agregó el prefijo BOM para
-garantizar UTF-8.
+Los problemas que más me hicieron perder tiempo fueron estos: el \texttt{Failed to fetch} de la
+IA, que era por abrir la app como archivo y no por HTTP; la caché del \emph{Service Worker}, que
+se me quedó pegada con la versión anterior y por eso subí a \texttt{neurowork-v3}; el primer
+generador de CV, que repetía los datos de contacto y tenía las fechas mal; y los documentos
+\texttt{.doc}, que se veían mal en Windows hasta que les puse el prefijo BOM para utf-8.
 
-\subsection{Retroalimentación}
-No tengo resultados de usuarios todavía, así que no voy a inventarlos. La prueba piloto con
-2--3 personas neurodivergentes está planeada para la fase final.
+\subsection{Sobre la retroalimentación}
+Aquí no hay nada que reportar todavía. No hice pruebas con usuarios, así que no voy a poner
+opiniones que no recogí. La prueba con 2--3 personas neurodivergentes está en el plan de cierre.
 
 \section{Documentación técnica}
-En \texttt{docs/} dejé la arquitectura y el flujo del sistema
-(\texttt{docs/03-arquitectura.md} y \texttt{docs/13-base-de-datos.md}), la especificación de
-los módulos (\texttt{docs/04-modulos-funcionales.md}), los flujos de IA
-(\texttt{docs/05-flujos-de-ia.md}), la minería de datos (\texttt{docs/06-mineria-de-datos.md}),
-seguridad (\texttt{docs/07-seguridad.md}) y pruebas (\texttt{docs/09-pruebas.md}). El manual de
-usuario inicial está en \texttt{docs/14-manual-usuario.md} y el plan de cierre en
-\texttt{docs/15-plan-fase-final.md}.
+En \texttt{docs/} dejé los documentos que usé para armar el prototipo: arquitectura y flujo
+(\texttt{docs/03} y \texttt{docs/13}), módulos (\texttt{docs/04}), flujos de IA
+(\texttt{docs/05}), minería de datos (\texttt{docs/06}), seguridad (\texttt{docs/07}) y pruebas
+(\texttt{docs/09}). El manual de usuario está en \texttt{docs/14} y el plan de cierre en
+\texttt{docs/15}. El código y las capturas están en el repositorio que aparece al inicio.
 
-\section{Plan de trabajo para la fase final}
+\section{Lo que falta para la entrega final}
+Esto es lo que tengo anotado para cerrar el proyecto. Los días son una estimación mía, no los
+medí:
+
 \begin{table}[htbp]
 \caption{Plan de trabajo para la fase final.}
 \label{tab:plan}
