@@ -121,10 +121,10 @@ La llave de Gemini no viaja al navegador. Se lee en el servidor desde `server/.e
 | Base de datos | `server/db.js`, [`docs/13-base-de-datos.md`](../docs/13-base-de-datos.md) | Esquema relacional y relaciones |
 | Pruebas automáticas | `tests/` (41 pruebas) | Verificación de analítica, CV, BD y API |
 | Documentación | [`docs/01`–`15`](../docs/), `README.md` | Diseño y funcionamiento |
-| Capturas de pantalla | [Figuras 1–15](figs/) | Módulos en funcionamiento (datos de ejemplo) |
+| Capturas de pantalla | [Figuras 1–15](figs/) | Módulos en funcionamiento con mis datos reales |
 | Video de demostración | Sin grabar todavía | Flujo principal en vivo (fase final) |
 
-Las capturas se tomaron con datos de ejemplo, no con información real de nadie, y están en [`informe/figs`](figs/) y dentro del PDF con los números del 1 al 15. El video aún no está grabado; el guion ya está escrito en [`informe/guion-video.md`](guion-video.md).
+Las capturas se tomaron con mi propio perfil (Yahir Ortega Ramos) en un servidor de prueba aislado, sin tocar mi base de datos real. Están en [`informe/figs`](figs/) y dentro del PDF con los números del 1 al 15. El video aún no está grabado; el guion ya está escrito en [`informe/guion-video.md`](guion-video.md).
 
 Comandos para repetir la verificación:
 
