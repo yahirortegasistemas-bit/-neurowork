@@ -1,0 +1,103 @@
+GUION DEL VIDEO DE DEMOSTRACION — NEUROWORK (AVANCE 2)
+Yahir Ortega Ramos · Equipo 5 · Instituto Tecnologico de Tijuana
+
+Duracion objetivo: 2:30 a 3:00 · Formato: 1080p, con voz · Tono: claro y pausado.
+
+El video cubre el flujo principal (entregable 4 del Avance 2). No necesita ser perfecto:
+debe mostrar que el prototipo se ejecuta y que sus funciones clave trabajan.
+
+------------------------------------------------------------
+1. ANTES DE GRABAR (lista de comprobacion)
+
+- [ ] Servidor activo: en la carpeta del proyecto, node server\server.js, y abre
+      http://127.0.0.1:8787
+- [ ] Recarga fuerte de la app: Ctrl + Shift + R (la caché es neurowork-v3).
+- [ ] Clave de Gemini configurada en server/.env (para que la IA responda).
+- [ ] Datos ya cargados con tu perfil real (Yahir Ortega Ramos). NO pulses
+      "Reiniciar datos": eso borraria tambien el respaldo en SQLite.
+- [ ] Cierra notificaciones y pestañas que no uses; deja la app y una pestaña
+      con el repositorio de GitHub.
+- [ ] Sube el zoom del navegador a 110 % (Ctrl + +) para que el texto se lea bien.
+- [ ] Prueba el microfono y que no haya ruido de fondo.
+
+Texto de vacante listo para pegar (Entrevistas -> Entender la vacante):
+
+  "Buscamos desarrollador web junior con JavaScript, Node.js, bases de datos
+   y atencion al detalle. Modalidad hibrida, jornada completa."
+
+------------------------------------------------------------
+2. HERRAMIENTAS DE GRABACION (Windows)
+
+- Barra de juegos: Win + G -> graba pantalla y microfono.
+  Atajos: Win + Alt + R inicia/detiene. Guarda en Vídeos\Capturas.
+- Alternativa: Herramienta de recortes (Win + Shift + S -> Grabar) o PowerPoint.
+
+------------------------------------------------------------
+3. GUION POR TOMAS
+
+Tiempo      Que haces en pantalla                          Que dices (aprox.)
+-------      -------------------------------------------    ----------------------------------------
+0:00-0:15   Estás en Panel.                                 "Hola, soy Yahir. Este es NeuroWork, una
+                                                            aplicacion web de apoyo a la busqueda de
+                                                            empleo para personas neurodivergentes.
+                                                            Esta hecha con JavaScript y un backend
+                                                            en Node.js, sin dependencias externas."
+
+0:15-0:30   Muestra 1 segundo la terminal con               "El servidor sirve la aplicacion y una
+            node server\server.js y luego la app.            base de datos SQLite local."
+
+0:30-0:55   Ve a Perfil (muestra experiencia) y a            "Aqui registro mi perfil, mi experiencia
+            Habilidades (nivel 1-5).                         y mis habilidades con un nivel de
+                                                            confianza."
+
+0:55-1:35   Ve a CV: pulsa Generar borrador (IA) ->         "El modulo de CV redacta un borrador con
+            cambia plantilla (Moderno -> Ejecutivo) ->       IA a partir de mi perfil, sin inventar
+            Vista previa -> cierra -> Descargar con          experiencia. Puedo elegir entre cuatro
+            diseno.                                          disenos, ver la vista previa y
+                                                            descargarlo."
+
+1:35-2:05   Ve a Entrevistas -> pestana Entender la         "En Entrevistas, la IA explica la vacante
+            vacante: pega el texto y pulsa Analizar          en lenguaje simple y hay un simulador
+            vacante. Si hay tiempo, muestra Simulador.       con retroalimentacion por respuesta."
+
+2:05-2:30   Objetivos (mueve una barra) -> Checklist        "Tambien organizo mis tareas y objetivos,
+            (marca una tarea) -> Progreso (graficas).        y veo mi progreso en graficas calculadas
+                                                            a partir de mis datos, sin inventar
+                                                            cifras."
+
+2:30-2:45   Privacidad (senala "Respaldo: base de datos     "Mis datos viven en el navegador y, si el
+            local"). Opcional: abre                          servidor esta activo, se respaldan en una
+            http://127.0.0.1:8787/api/db.                    base SQLite local. Son veintitres tablas
+                                                            relacionales."
+
+2:45-3:00   Pestana con GitHub (el repositorio).            "El codigo y la documentacion estan en
+                                                            GitHub, con cuarenta y una pruebas
+                                                            automaticas. Gracias."
+
+------------------------------------------------------------
+4. QUE NO DECIR
+
+- No digas "tiene login": no existe, es una decision de privacidad (local-first).
+  Si te preguntan, eso se explica.
+- No digas que esta "terminado al 100 %": es un avance. Di "prototipo funcional
+  en fase operativa inicial".
+- No inventes resultados de usuarios: las pruebas con personas estan pendientes.
+
+------------------------------------------------------------
+5. CONSEJOS PARA QUE SE VEA BIEN
+
+- Mueve el raton despacio y espera a que cargue la IA antes de hablar de ella
+  (puede tardar 2-4 s).
+- Si la IA falla (sin clave), saltate esos pasos y muestra solo la pestana
+  Preparacion (la guia funciona siempre); menciona que la IA se demuestra
+  en el informe.
+- No edites el video si no quieres; un solo plano continuo es valido.
+
+------------------------------------------------------------
+6. DESPUES DE GRABAR
+
+1. Guarda el archivo como NeuroWork-avance2-demo.mp4.
+2. Subelo a YouTube (No listado) o Google Drive y copia el enlace.
+3. Pega el enlace en informe/AVANCE-2.md, seccion 4, fila
+   "Video de demostracion".
+4. Avisame y lo dejo enlazado tambien en el PDF Springer y en el repositorio.

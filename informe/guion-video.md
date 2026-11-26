@@ -12,14 +12,14 @@ debe mostrar que el prototipo **se ejecuta** y que sus funciones clave trabajan.
 - [ ] Servidor activo: en la carpeta del proyecto, `node server\server.js`, y abre `http://127.0.0.1:8787`.
 - [ ] **Recarga fuerte** de la app: `Ctrl + Shift + R`.
 - [ ] Clave de Gemini configurada en `server/.env` (para que la IA responda en CV y Entrevistas).
-- [ ] Datos ya cargados (perfil, habilidades, un CV). Si prefieres datos neutros, pulsa **"Reiniciar datos"** y agrega 3–4 cosas.
+- [ ] Datos ya cargados con tu perfil real (Yahir Ortega Ramos). **No pulses "Reiniciar datos"**: también borraría el respaldo en SQLite.
 - [ ] Cierra notificaciones y pestañas que no uses; deja la app y una pestaña con el repositorio de GitHub.
 - [ ] Sube el zoom del navegador a **110 %** (`Ctrl` + `+`) para que el texto se lea bien.
 - [ ] Prueba el micrófono y que no haya ruido de fondo.
 
 **Texto de vacante listo para pegar** (en Entrevistas → Entender la vacante):
 
-> Buscamos auxiliar administrativo con manejo de Excel, atención a clientes y organización de documentos. Tiempo completo, modalidad híbrida.
+> Buscamos desarrollador web junior con JavaScript, Node.js, bases de datos y atención al detalle. Modalidad híbrida, jornada completa.
 
 ## 2. Herramientas de grabación (Windows)
 
